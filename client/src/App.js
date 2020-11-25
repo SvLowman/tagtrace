@@ -10,7 +10,6 @@ function App() {
         onLogout={() => console.log("logout")}
         onCreateAccount={() => console.log("create account")}
       />
-      <a href="/storybook">To Storybook</a>
     </div>
   );
 }
