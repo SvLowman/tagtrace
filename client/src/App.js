@@ -1,16 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Page from "./pages/Page";
-import UploadPage from "./pages/UploadPage";
-import TaggingPage from "./pages/TaggingPage";
-import AlbumPage from "./pages/AlbumPage";
+// import UploadPage from "./pages/UploadPage";
+// import TaggingPage from "./pages/TaggingPage";
+// import AlbumPage from "./pages/AlbumPage";
 
 function App() {
   return (
     <div className="App">
       <Page />
-      <Router>
+      {/* <Router>
         <Switch>
           <Route exact path="/">
             <UploadPage />
@@ -22,7 +22,7 @@ function App() {
             <AlbumPage />
           </Route>
         </Switch>
-      </Router>
+      </Router> */}
     </div>
   );
 }
