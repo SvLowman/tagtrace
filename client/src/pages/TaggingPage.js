@@ -34,7 +34,7 @@ const TaggingPage = () => (
       <Link to="/">
         <Button label="➕" />
       </Link>
-      <Link to="/album">
+      <Link to="/gallery">
         <Button label="👁" />
       </Link>
     </div>

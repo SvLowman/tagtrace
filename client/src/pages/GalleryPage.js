@@ -7,7 +7,7 @@ const Display = styled.div`
   border: solid 1px lightgray;
 `;
 
-const AlbumPage = () => (
+const GalleryPage = () => (
   <div>
     <section>
       <h2>Das hier ist die Album-Seite 🤩</h2>
@@ -27,4 +27,4 @@ const AlbumPage = () => (
   </div>
 );
 
-export default AlbumPage;
+export default GalleryPage;

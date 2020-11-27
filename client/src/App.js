@@ -4,7 +4,7 @@ import "./App.css";
 import Page from "./pages/Page";
 import UploadPage from "./pages/UploadPage";
 import TaggingPage from "./pages/TaggingPage";
-import AlbumPage from "./pages/AlbumPage";
+import GalleryPage from "./pages/GalleryPage";
 
 function App() {
   return (
@@ -18,8 +18,8 @@ function App() {
           <Route exact path="/tagging">
             <TaggingPage />
           </Route>
-          <Route exact path="/album">
-            <AlbumPage />
+          <Route exact path="/gallery">
+            <GalleryPage />
           </Route>
         </Switch>
       </Router>

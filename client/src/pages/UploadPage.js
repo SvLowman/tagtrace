@@ -16,7 +16,7 @@ const UploadPage = () => (
       />
     </div>
     <div>
-      <Link to="/album">
+      <Link to="/gallery">
         <Button label="👁" />
       </Link>
       <Link to="/tagging">
