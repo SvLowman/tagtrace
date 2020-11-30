@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "../components/Button";
+import UploadPreview from "../components/UploadPreview";
 
 const UploadPage = () => (
   <div>
@@ -14,6 +15,7 @@ const UploadPage = () => (
         }}
       />
     </div>
+    <UploadPreview />
     <div>
       <Button
         label="Dieses Bild hochladen"
