@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
 
 const UploadPage = () => (
@@ -9,19 +8,19 @@ const UploadPage = () => (
     </section>
     <div>
       <Button
-        label="Zur POST-Route"
+        label="Bild auswählen"
         onClick={() => {
           alert("Der Button funktioniert.");
         }}
       />
     </div>
     <div>
-      <Link to="/gallery">
-        <Button label="👁" />
-      </Link>
-      <Link to="/tagging">
-        <Button label="🏷" />
-      </Link>
+      <Button
+        label="Dieses Bild hochladen"
+        onClick={() => {
+          alert("Der Button funktioniert.");
+        }}
+      />
     </div>
   </div>
 );

@@ -5,6 +5,7 @@ import Page from "./pages/Page";
 import UploadPage from "./pages/UploadPage";
 import TaggingPage from "./pages/TaggingPage";
 import GalleryPage from "./pages/GalleryPage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <GalleryPage />
           </Route>
         </Switch>
+        <Footer />
       </Router>
     </div>
   );
