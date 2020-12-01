@@ -12,8 +12,9 @@ app.post("/api/upload", async (request, response) => {
   try {
     const fileStr = request.body.data;
     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
-      upload_preset: "upload",
+      upload_preset: "TagTrace",
     });
+    response.status(201).json(uploadedResponse);
     console.log(uploadedResponse);
   } catch (error) {
     console.error(error);

@@ -51,6 +51,5 @@
     "cloudinary": "^1.23.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1"
-  },
-  "proxy": "http://localhost:3047"
+  }
 }
