@@ -29,14 +29,15 @@ app.post("/api/upload", async (request, response) => {
 });
 
 // GET-Route from MongoDB
-app.get("/api/sven/:url", async (request, response) => {
-  const { url } = request.params;
+app.get("/api/sven/:tags", async (request, response) => {
+  const { tags } = request.params;
   try {
-    const urlValue = await getData(url);
-    if (!urlValue) {
+    const entryValue = await getData(tags);
+    if (!entryValue) {
       response.status(404).send("Not found");
       return;
     }
+    response.status(200).send(entryValue);
   } catch (error) {
     console.error(error);
     response.status(500).send("Error 500 occured");
