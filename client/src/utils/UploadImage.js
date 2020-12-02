@@ -44,14 +44,10 @@ export default function UploadImage() {
     }
   };
   return (
-    <>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <input type="file" value={uploadInput} onChange={handleImageChange} />
-          <Button type="submit" label="Bild hochladen" />
-          {previewSrc && <UploadPreview src={previewSrc} alt="" />}
-        </form>
-      </div>
-    </>
+    <form onSubmit={handleSubmit}>
+      <input type="file" value={uploadInput} onChange={handleImageChange} />
+      {previewSrc && <UploadPreview src={previewSrc} alt="" />}
+      <Button type="submit" label="Bild hochladen" />
+    </form>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import UploadImage from "../utils/uploadImage";
+import UploadImage from "../utils/UploadImage";
 
 const UploadPage = () => (
   <div>

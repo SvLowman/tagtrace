@@ -6,10 +6,9 @@ const Display = styled.div`
   height: 10rem;
   width: 10rem;
   border: solid 1px black;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 `;
-const IMG = styled.img`
+const PreviewImage = styled.img`
   height: 10rem;
   width: 10rem;
 `;
@@ -17,7 +16,7 @@ const IMG = styled.img`
 const UploadPreview = ({ src, alt }) => {
   return (
     <Display>
-      <IMG src={src} alt={alt} />
+      <PreviewImage src={src} alt={alt} />
     </Display>
   );
 };

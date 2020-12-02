@@ -5,7 +5,7 @@ import Page from "./pages/Page";
 import UploadPage from "./pages/UploadPage";
 import TaggingPage from "./pages/TaggingPage";
 import GalleryPage from "./pages/GalleryPage";
-import Footer from "./components/Footer";
+import BottomNav from "./components/BottomNav";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
             <GalleryPage />
           </Route>
         </Switch>
-        <Footer />
+        <BottomNav />
       </Router>
     </div>
   );

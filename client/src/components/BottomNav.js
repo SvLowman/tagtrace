@@ -1,11 +1,15 @@
 import React from "react";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-const Footer = () => (
-  <footer>
-    <hr />
-    <h2>- Footer -</h2>
+const NavContainer = styled.nav`
+  border-top: solid 1px black;
+`;
+
+const BottomNavContainer = () => (
+  <NavContainer>
+    <h2>- BottomNav -</h2>
     <div>
       <Link to="/gallery">
         <Link to="/">
@@ -17,7 +21,7 @@ const Footer = () => (
         <Button label="🏷" />
       </Link>
     </div>
-  </footer>
+  </NavContainer>
 );
 
-export default Footer;
+export default BottomNavContainer;
