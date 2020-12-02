@@ -1,7 +1,12 @@
 require("dotenv").config();
+
 const { cloudinary } = require("./lib/cloudinary");
 const express = require("express");
 const path = require("path");
+
+const { getData } = require("./lib/data");
+const { connect } = require("./lib/database");
+
 const app = express();
 const port = process.env.PORT || 3047;
 
@@ -23,6 +28,21 @@ app.post("/api/upload", async (request, response) => {
   }
 });
 
+// GET-Route from MongoDB
+app.get("/api/sven/:url", async (request, response) => {
+  const { url } = request.params;
+  try {
+    const urlValue = await getData(url);
+    if (!urlValue) {
+      response.status(404).send("Not found");
+      return;
+    }
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("Error 500 occured");
+  }
+});
+
 // Serve any static files
 app.use(express.static(path.join(__dirname, "client/build")));
 app.use(
@@ -35,6 +55,15 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 
+// Connection to mongoDB
+async function run() {
+  console.log("Connecting to database");
+  await connect(process.env.DB_USER_PASSWORD, process.env.DB_NAME);
+  console.log("Connected to database");
+}
+
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
+
+run();
