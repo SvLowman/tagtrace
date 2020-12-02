@@ -5,6 +5,7 @@ import Page from "./pages/Page";
 import UploadPage from "./pages/UploadPage";
 import TaggingPage from "./pages/TaggingPage";
 import GalleryPage from "./pages/GalleryPage";
+import BottomNav from "./components/BottomNav";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <GalleryPage />
           </Route>
         </Switch>
+        <BottomNav />
       </Router>
     </div>
   );

@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
 import styled from "styled-components";
 
@@ -29,14 +28,6 @@ const TaggingPage = () => (
           alert("Der Button funktioniert.");
         }}
       />
-    </div>
-    <div>
-      <Link to="/">
-        <Button label="➕" />
-      </Link>
-      <Link to="/gallery">
-        <Button label="👁" />
-      </Link>
     </div>
   </div>
 );

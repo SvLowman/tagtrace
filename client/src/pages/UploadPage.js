@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Button } from "../components/Button";
+import UploadImage from "../utils/UploadImage";
 
 const UploadPage = () => (
   <div>
@@ -8,20 +7,7 @@ const UploadPage = () => (
       <h2>Das hier ist die Upload-Seite 🤗</h2>
     </section>
     <div>
-      <Button
-        label="Zur POST-Route"
-        onClick={() => {
-          alert("Der Button funktioniert.");
-        }}
-      />
-    </div>
-    <div>
-      <Link to="/gallery">
-        <Button label="👁" />
-      </Link>
-      <Link to="/tagging">
-        <Button label="🏷" />
-      </Link>
+      <UploadImage />
     </div>
   </div>
 );
