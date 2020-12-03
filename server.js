@@ -4,7 +4,7 @@ const { cloudinary } = require("./lib/cloudinary");
 const express = require("express");
 const path = require("path");
 
-const { getData } = require("./lib/data");
+const { getImageDataByTag } = require("./lib/data");
 const { connect } = require("./lib/database");
 
 const app = express();
@@ -29,10 +29,10 @@ app.post("/api/upload", async (request, response) => {
 });
 
 // GET-Route from MongoDB
-app.get("/api/sven/:tags", async (request, response) => {
-  const { tags } = request.params;
+app.get("/api/users/:userName", async (request, response) => {
+  const { userName } = request.params;
   try {
-    const entryValue = await getData(tags);
+    const entryValue = await getImageDataByTag(userName);
     if (!entryValue) {
       response.status(404).send("Not found");
       return;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 import { useEffect } from "react";
-import { getData } from "../utils/api";
+import { getImageObj } from "../utils/api";
 import useAsync from "../utils/useAsync";
 
 const Display = styled.div`
@@ -9,7 +9,11 @@ const Display = styled.div`
 `;
 
 const GalleryPage = () => {
-  const { data, loading, error, doFetch } = useAsync(() => getData("2"));
+  const userName = "sven";
+  //const tag = "2";
+  const { data, loading, error, doFetch } = useAsync(() =>
+    getImageObj(userName)
+  );
 
   useEffect(() => {
     doFetch();
