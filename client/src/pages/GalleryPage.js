@@ -19,6 +19,8 @@ const GalleryPage = () => {
     doFetch();
   }, []);
 
+  const images = data[0].images;
+
   return (
     <>
       <div>
@@ -30,11 +32,11 @@ const GalleryPage = () => {
           <p>Display für Cloudinary-Links von MongoDB</p>
           {loading && <p>Loading...</p>}
           {error && <p>{error.message}</p>}
+          {console.log(images)}
           {data &&
-            data.map((image) => (
-              <img key={image._id} src={image.url} alt={image.title} />
+            images.map((image) => (
+              <img key={image.url} src={image.url} alt="alt" />
             ))}
-          {data && console.log(data)}
         </Display>
       </div>
     </>
