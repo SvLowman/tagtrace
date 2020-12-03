@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { useEffect } from "react";
 import { getData } from "../utils/api";
 import useAsync from "../utils/useAsync";
@@ -26,7 +26,6 @@ const GalleryPage = () => {
           <p>Display für Cloudinary-Links von MongoDB</p>
           {loading && <p>Loading...</p>}
           {error && <p>{error.message}</p>}
-          {/* {data && <img src={data.url} alt={data.title} />} */}
           {data &&
             data.map((image) => (
               <img key={image._id} src={image.url} alt={image.title} />

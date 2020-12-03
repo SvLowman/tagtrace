@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const NavContainer = styled.nav`
   border-top: solid 1px black;

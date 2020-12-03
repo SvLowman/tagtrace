@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "../components/Button";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const Display = styled.div`
   border: solid 1px lightgray;
