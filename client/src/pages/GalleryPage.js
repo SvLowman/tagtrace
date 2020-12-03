@@ -9,7 +9,7 @@ const Display = styled.div`
 `;
 
 const GalleryPage = () => {
-  const { data, loading, error, doFetch } = useAsync(() => getData("1"));
+  const { data, loading, error, doFetch } = useAsync(() => getData("2"));
 
   useEffect(() => {
     doFetch();
@@ -26,7 +26,12 @@ const GalleryPage = () => {
           <p>Display für Cloudinary-Links von MongoDB</p>
           {loading && <p>Loading...</p>}
           {error && <p>{error.message}</p>}
-          {data && <img src={data.url} alt={data.title} />}
+          {/* {data && <img src={data.url} alt={data.title} />} */}
+          {data &&
+            data.map((image) => (
+              <img key={image._id} src={image.url} alt={image.title} />
+            ))}
+          {data && console.log(data)}
         </Display>
       </div>
     </>
