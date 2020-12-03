@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const HeaderContainer = styled.div`
   border-bottom: solid 1px black;
