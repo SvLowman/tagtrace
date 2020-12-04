@@ -12,8 +12,11 @@ const TaggingPage = () => (
       <h2>Das hier ist die Tagging-Seite 🤔</h2>
     </section>
     <Display>
-      <img src="" alt="testImage" />
-      <p>Display für Response der GET-Route</p>
+      <p>Hier soll ein ausgewähltes Bild stehen</p>
+      <img
+        src="https://res.cloudinary.com/tagtrace/image/upload/v1606822076/TagTrace/wmcwfmhypvc06pnjtcpg.jpg"
+        alt="testImage"
+      />
     </Display>
     <div>
       <Button

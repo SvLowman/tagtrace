@@ -4,8 +4,10 @@ const { cloudinary } = require("./lib/cloudinary");
 const express = require("express");
 const path = require("path");
 
-const { getImageDataByTag } = require("./lib/data");
+const { getImageDataOfUser } = require("./lib/data");
+const { setImage } = require("./lib/data");
 const { connect } = require("./lib/database");
+const { request } = require("express");
 
 const app = express();
 const port = process.env.PORT || 3047;
@@ -32,7 +34,7 @@ app.post("/api/upload", async (request, response) => {
 app.get("/api/users/:userName", async (request, response) => {
   const { userName } = request.params;
   try {
-    const entryValue = await getImageDataByTag(userName);
+    const entryValue = await getImageDataOfUser(userName);
     if (!entryValue) {
       response.status(404).send("Not found");
       return;
@@ -41,6 +43,19 @@ app.get("/api/users/:userName", async (request, response) => {
   } catch (error) {
     console.error(error);
     response.status(500).send("Error 500 occured");
+  }
+});
+
+// POST-Route to MongoDB
+app.post("/api/users/:userName", async (request, response) => {
+  const imageObj = request.body;
+
+  try {
+    await setImage(imageObj);
+    response.send(`Image ${imageObj.url} posted`);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("Error 500 occured.");
   }
 });
 

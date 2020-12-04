@@ -10,16 +10,13 @@ const Display = styled.div`
 
 const GalleryPage = () => {
   const userName = "sven";
-  //const tag = "2";
-  const { data, loading, error, doFetch } = useAsync(() =>
+  const { data: userData, loading, error, doFetch } = useAsync(() =>
     getImageObj(userName)
   );
 
   useEffect(() => {
     doFetch();
   }, []);
-
-  const images = data[0].images;
 
   return (
     <>
@@ -28,13 +25,12 @@ const GalleryPage = () => {
           <h2>Das hier ist die Album-Seite 🤩</h2>
         </section>
         <Display>
-          <img src="" alt="testImage" />
           <p>Display für Cloudinary-Links von MongoDB</p>
           {loading && <p>Loading...</p>}
           {error && <p>{error.message}</p>}
-          {console.log(images)}
-          {data &&
-            images.map((image) => (
+          {console.log(userData)}
+          {userData &&
+            userData.images.map((image) => (
               <img key={image.url} src={image.url} alt="alt" />
             ))}
         </Display>
