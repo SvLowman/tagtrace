@@ -4,10 +4,11 @@ const { cloudinary } = require("./lib/cloudinary");
 const express = require("express");
 const path = require("path");
 
-const { getImageDataOfUser } = require("./lib/data");
-const { setImage } = require("./lib/data");
+const { getImageDataOfUser /*getImagesByTag*/ } = require("./lib/data");
+const { setImage, setTag } = require("./lib/data");
 const { connect } = require("./lib/database");
 const { request } = require("express");
+const { send } = require("process");
 
 const app = express();
 const port = process.env.PORT || 3047;
@@ -30,23 +31,38 @@ app.post("/api/upload", async (request, response) => {
   }
 });
 
-// GET-Route from MongoDB
+// GET-Routes from MongoDB
 app.get("/api/users/:userName", async (request, response) => {
   const { userName } = request.params;
   try {
-    const entryValue = await getImageDataOfUser(userName);
-    if (!entryValue) {
+    const userEntry = await getImageDataOfUser(userName);
+    if (!userEntry) {
       response.status(404).send("Not found");
       return;
     }
-    response.status(200).send(entryValue);
+    response.status(200).send(userEntry);
   } catch (error) {
     console.error(error);
     response.status(500).send("Error 500 occured");
   }
 });
 
-// POST-Route to MongoDB
+// app.get("/api/users/:userName/:tagName", async (request, response) => {
+//   const { userName, tagName } = request.params;
+//   try {
+//     const singleImageEntry = await getImagesByTag(userName, tagName);
+//     if (!singleImageEntry) {
+//       response.status(404).send("Not found");
+//       return;
+//     }
+//     response.status(200).send(singleImageEntry);
+//   } catch (error) {
+//     console.error(error);
+//     response.status(500).send("Error 500 occured trying GET");
+//   }
+// });
+
+// POST-Routes to MongoDB
 app.post("/api/users/:userName", async (request, response) => {
   const imageObj = request.body;
 
@@ -56,6 +72,19 @@ app.post("/api/users/:userName", async (request, response) => {
   } catch (error) {
     console.error(error);
     response.status(500).send("Error 500 occured.");
+  }
+});
+
+app.post("/api/users/:userName/images/:url/tags", async (request, response) => {
+  const { tagName } = request.body;
+  const { url } = request.params;
+
+  try {
+    await setTag(tagName, url);
+    response.send(`Tag ${tagName} posted`);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("Error 500 occured trying POST.");
   }
 });
 
