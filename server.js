@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const { cloudinary } = require("./lib/cloudinary");
+// const { cloudinary } = require("./lib/cloudinary");
 const express = require("express");
 const path = require("path");
 
