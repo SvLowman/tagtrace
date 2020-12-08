@@ -1,10 +1,13 @@
 import React from "react";
-import { Button } from "../components/Button";
+// import { Button } from "../components/Button";
 import styled from "styled-components/macro";
 
 const Display = styled.div`
   border: solid 1px lightgray;
 `;
+// const TagForm = styled.form`
+//   border: solid 1px lightgray;
+// `;
 
 const TaggingPage = () => (
   <div>
@@ -18,20 +21,21 @@ const TaggingPage = () => (
         alt="testImage"
       />
     </Display>
-    <div>
+    {/* <TagForm onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Tag setzen"
+        value={tagName}
+        onChange={handleInputChange}
+      ></input>
       <Button
-        label="Zur UPDATE-Route"
+        label="Darf ich button?"
+        type="submit"
         onClick={() => {
           alert("Der Button funktioniert.");
         }}
       />
-      <Button
-        label="Zur DELETE-Route"
-        onClick={() => {
-          alert("Der Button funktioniert.");
-        }}
-      />
-    </div>
+    </TagForm> */}
   </div>
 );
 
