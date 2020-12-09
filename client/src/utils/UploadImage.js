@@ -34,7 +34,7 @@ export default function UploadImage() {
     try {
       await fetch("/api/upload", {
         method: "POST",
-        body: JSON.stringify({ data: base64EncodedImage }),
+        body: JSON.stringify({ image: base64EncodedImage, userName: "sven" }),
         headers: { "Content-Type": "application/json" },
       });
       setUploadInput("");
