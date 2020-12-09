@@ -1,14 +1,11 @@
 require("dotenv").config();
 
-// const { cloudinary } = require("./lib/cloudinary");
 const express = require("express");
 const path = require("path");
 
 const { getImageDataOfUser } = require("./lib/data");
 const { setImage, setTag } = require("./lib/data");
 const { connect } = require("./lib/database");
-// const { request } = require("express");
-// const { send } = require("process");
 
 const app = express();
 const port = process.env.PORT || 3047;

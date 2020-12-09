@@ -50,13 +50,7 @@ const TaggingPage = () => {
             value={tagName}
             onChange={handleTagNameChange}
           ></input>
-          <Button
-            label="Darf ich button?"
-            type="submit"
-            onClick={() => {
-              alert("Der Button funktioniert.");
-            }}
-          />
+          <Button label="Darf ich button?" type="submit" />
         </TagForm>
       </div>
     </>
