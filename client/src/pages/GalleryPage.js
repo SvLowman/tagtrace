@@ -28,7 +28,6 @@ const GalleryPage = () => {
           <p>Display für Cloudinary-Links von MongoDB</p>
           {loading && <p>Loading...</p>}
           {error && <p>{error.message}</p>}
-          {console.log(userData)}
           {userData &&
             userData.images.map((image) => (
               <img key={image.url} src={image.url} alt="alt" />
