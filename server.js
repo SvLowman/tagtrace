@@ -63,8 +63,13 @@ app.post(
     const { imgNr } = request.params;
 
     try {
-      await setTag(tagName, imgNr);
-      response.send(`Tag ${tagName} posted`);
+      const updated = await setTag(tagName, imgNr);
+      if (updated.modifiedCount == 0) {
+        response.status(400).send(`No modifications.`);
+      } else {
+        response.status(200).send(`Modification applied.`);
+      }
+      console.log("Modified count:", updated.modifiedCount);
     } catch (error) {
       console.error(error);
       response.status(500).send("Error 500 occured trying POST.");

@@ -20,11 +20,14 @@ export async function postImageObj(userName, image) {
 export async function addNewTag(userName, imgNr, tagName) {
   const response = await fetch(`/api/users/${userName}/images/${imgNr}/tags`, {
     method: "POST",
-    body: JSON.stringify(tagName),
+    body: JSON.stringify({ tagName }),
     headers: {
       "Content-Type": "application/json",
     },
   });
+  console.log("tagName as provided in api.js:", tagName);
+  console.log("Response:", response);
   const newTagArray = await response.json();
+  console.log(("newTagArray:", newTagArray));
   return newTagArray;
 }
