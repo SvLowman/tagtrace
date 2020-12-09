@@ -1,7 +1,6 @@
 export const getImageObj = async (userName) => {
   const response = await fetch(`/api/users/${userName}`);
   const imgEntry = await response.json();
-  console.log(imgEntry);
   return imgEntry;
 };
 
@@ -25,9 +24,6 @@ export async function addNewTag(userName, imgNr, tagName) {
       "Content-Type": "application/json",
     },
   });
-  console.log("tagName as provided in api.js:", tagName);
-  console.log("Response:", response);
   const newTagArray = await response.json();
-  console.log(("newTagArray:", newTagArray));
   return newTagArray;
 }

@@ -3,8 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 
-const { getImageDataOfUser } = require("./lib/data");
-const { setImage, setTag } = require("./lib/data");
+const { getImageDataOfUser, setImage, setTag } = require("./lib/data");
 const { connect } = require("./lib/database");
 
 const app = express();

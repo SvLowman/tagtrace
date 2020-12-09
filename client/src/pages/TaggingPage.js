@@ -18,8 +18,6 @@ const TaggingPage = () => {
   const [tagName, setTagName] = useState("");
 
   const handleTagNameChange = (event) => {
-    const tagName = event.target.value;
-    console.log("tagName:", tagName);
     setTagName(event.target.value);
   };
 
