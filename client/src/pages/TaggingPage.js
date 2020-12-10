@@ -35,7 +35,7 @@ const TagNotifier = styled.div`
 
 const TaggingPage = () => {
   const userName = "sven";
-  const imgNr = "3708dab5d7ffaf9e7193a15e98ad3cff";
+  // const imgNr = "3708dab5d7ffaf9e7193a15e98ad3cff";
 
   const { data: userData, loading, error, doFetch } = useAsync(() =>
     getImageObj(userName)
@@ -58,6 +58,13 @@ const TaggingPage = () => {
     }
   }, [userData]);
   console.log(selectedImage);
+  const [imgNr, setImgNr] = useState("");
+  useEffect(() => {
+    if (selectedImage) {
+      setImgNr(selectedImage.imgNr);
+    }
+  }, [selectedImage]);
+  console.log(imgNr);
 
   const handleTagNameChange = (event) => {
     setTagName(event.target.value);
@@ -119,7 +126,7 @@ const TaggingPage = () => {
           {selectedImage && <p>Diese Tags hat das Bild schon:</p>}
           {selectedImage &&
             selectedImage.tags.map((tag) => <p key={tag.index}>{tag}</p>)}
-          {selectedImage.tags === [] && <p>Noch keine Tags vergeben</p>}
+          {/* {selectedImage.tags === [] && <p>Noch keine Tags vergeben</p>} */}
         </TagNotifier>
       </div>
     </>
