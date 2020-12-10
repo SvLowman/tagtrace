@@ -18,6 +18,9 @@ const ImageContainer = styled.div`
 `;
 const ImageSlide = styled.div`
   border: solid 1px lightgray;
+  display: flex;
+  justify-content: center;
+  flex-direction: row-reverse;
 `;
 const Thumbnail = styled.img`
   width: 10vw;
@@ -113,10 +116,10 @@ const TaggingPage = () => {
           <Button label="Darf ich button?" type="submit" />
         </TagForm>
         <TagNotifier>
-          <p>Diese Tags hat das Bild schon:</p>
-          {selectedImage.tags.map((tag) => (
-            <p key={tag.index}>{tag}</p>
-          ))}
+          {selectedImage && <p>Diese Tags hat das Bild schon:</p>}
+          {selectedImage &&
+            selectedImage.tags.map((tag) => <p key={tag.index}>{tag}</p>)}
+          {selectedImage.tags === [] && <p>Noch keine Tags vergeben</p>}
         </TagNotifier>
       </div>
     </>
