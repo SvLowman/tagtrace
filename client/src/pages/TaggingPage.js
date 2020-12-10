@@ -41,13 +41,20 @@ const TaggingPage = () => {
     doFetch();
   }, []);
 
-  // console.log(userData.images[userData.images.length - 1].url);
-  // const selectedImage = userData.images[userData.images.length - 1];
-  // console.log(selectedImage.url);
-  // console.log(selectedImage.tags);
-
+  if (userData) {
+    // console.log(userData.images[userData.images.length - 1].url);
+    // const selectedImage = userData.images[userData.images.length - 1];
+    // console.log(selectedImage.url);
+    // console.log(selectedImage.tags);
+  }
   const [tagName, setTagName] = useState("");
-  // const [selectedImage, setSelectedImage] = useState(userData.images[userData.images.length - 1]);
+  const [selectedImage, setSelectedImage] = useState(null);
+  useEffect(() => {
+    if (userData) {
+      setSelectedImage(userData.images[userData.images.length - 1]);
+    }
+  }, [userData]);
+  console.log(selectedImage);
 
   const handleTagNameChange = (event) => {
     setTagName(event.target.value);
@@ -71,27 +78,28 @@ const TaggingPage = () => {
         </section>
         <Display>
           <ImageContainer>
-            <img
+            {/* <img
               src="https://res.cloudinary.com/tagtrace/image/upload/v1607532604/TagTrace/sfa2ekyqkrpfzex3lmv5.jpg"
               alt=""
-            />
+            /> */}
             {/* <img src={userData.images[userData.images.length - 1].url} alt="" /> */}
-            {/* <img src={selectedImage.url} alt="" /> */}
+            {selectedImage && <img src={selectedImage.url} alt="" />}
           </ImageContainer>
         </Display>
         <ImageSlide>
           {loading && <p>Loading...</p>}
           {error && <p>{error.message}</p>}
+          {/* {userData && userData.images.reverse()} */}
           {userData &&
             userData.images.map((image) => (
               <Thumbnail
-                // style={{
-                //   border: selectedImage === image ? "2px solid red" : "",
-                // }}
+                style={{
+                  border: selectedImage === image ? "2px solid red" : "",
+                }}
                 key={image.imgNr}
                 src={image.url}
                 alt="alt"
-                // onClick={() => setSelectedImage(image)}
+                onClick={() => setSelectedImage(image)}
               />
             ))}
         </ImageSlide>
@@ -106,9 +114,9 @@ const TaggingPage = () => {
         </TagForm>
         <TagNotifier>
           <p>Diese Tags hat das Bild schon:</p>
-          {/* {selectedImage.tags.map((tag) => (
-          <p>{tag}</p>
-  ))} */}
+          {selectedImage.tags.map((tag) => (
+            <p key={tag.index}>{tag}</p>
+          ))}
         </TagNotifier>
       </div>
     </>
