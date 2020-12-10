@@ -119,7 +119,7 @@ const TaggingPage = () => {
           {selectedImage && <p>Diese Tags hat das Bild schon:</p>}
           {selectedImage &&
             selectedImage.tags.map((tag, index) => <p key={index}>{tag}</p>)}
-          {/* {selectedImage.tags === [] ? <p>Noch keine Tags vergeben</p> : <p></p>} */}
+          {/* {selectedImage && selectedImage.tags === [] ? <p>Noch keine Tags vergeben</p> : <p></p>} */}
         </TagNotifier>
       </div>
     </>
