@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Button } from "../components/Button";
 import UploadPreview from "../components/UploadPreview";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function UploadImage() {
   const [uploadInput, setUploadInput] = useState("");
   const [previewSrc, setPreviewSrc] = useState("");
+  const history = useHistory();
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -29,6 +30,7 @@ export default function UploadImage() {
       console.log("No preview file");
     }
     uploadImage(previewSrc);
+    history.push("/tagging");
   };
 
   const uploadImage = async (base64EncodedImage) => {
@@ -48,9 +50,7 @@ export default function UploadImage() {
     <form onSubmit={handleSubmit}>
       <input type="file" value={uploadInput} onChange={handleImageChange} />
       {previewSrc && <UploadPreview src={previewSrc} alt="" />}
-      <Link to="/tagging">
-        <Button type="submit" label="Bild hochladen" />
-      </Link>
+      <Button type="submit" label="Bild hochladen" />
     </form>
   );
 }
