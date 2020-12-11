@@ -77,6 +77,7 @@ const TaggingPage = () => {
       console.log("The fabulous tagName is:", tagName);
     }
     addNewTag(userName, imgNr, tagName);
+    setTagName("");
   };
 
   return (
