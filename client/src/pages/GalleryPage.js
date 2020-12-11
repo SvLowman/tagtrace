@@ -10,20 +10,20 @@ const ImageDisplay = styled.div`
   display: flex;
   justify-content: center;
 `;
-const Display = styled.div`
-  border: solid 1px lightgray;
-  display: flex;
-  justify-content: center;
-`;
+// const Display = styled.div`
+//   border: solid 1px lightgray;
+//   display: flex;
+//   justify-content: center;
+// `;
 const ImageContainer = styled.div`
   height: 800px;
   width: 800px;
   border: solid 1px lightgray;
 `;
-const Thumbnail = styled.img`
-  width: 10vw;
-  margin: 0 0.5rem;
-`;
+// const Thumbnail = styled.img`
+//   width: 10vw;
+//   margin: 0 0.5rem;
+// `;
 const TagDisplay = styled.div`
   border: solid 1px lightgray;
 `;
@@ -46,6 +46,27 @@ const GalleryPage = () => {
   }, [userData]);
   console.log(currentImage);
 
+  // if (userData && currentImage) {
+  //   console.log(userData.images.indexOf(currentImage));
+  //   const indexOfCurrentImage = userData.images.indexOf(currentImage);
+  //   console.log(indexOfCurrentImage + 1);
+  // }
+
+  // console.log(indexOfCurrentImage);
+
+  // const testArray = ["a", "b", "c"];
+  // console.log(testArray.indexOf("b"));
+
+  const nextPlease = () => {
+    const indexOfCurrentImage = userData.images.indexOf(currentImage);
+    setCurrentImage(userData.images[indexOfCurrentImage + 1]);
+  };
+
+  const previousPlease = () => {
+    const indexOfCurrentImage = userData.images.indexOf(currentImage);
+    setCurrentImage(userData.images[indexOfCurrentImage - 1]);
+  };
+
   return (
     <>
       <div>
@@ -54,19 +75,21 @@ const GalleryPage = () => {
         </section>
         <ImageDisplay>
           <ImageContainer>
-            <Button label="◀" type="submit" />
+            <Button label="◀" type="submit" onClick={previousPlease} />
+            {loading && <p>Loading...</p>}
+            {error && <p>{error.message}</p>}
             {currentImage && <img src={currentImage.url} alt="" />}
-            <Button label="▶" type="submit" />
+            <Button label="▶" type="submit" onClick={nextPlease} />
           </ImageContainer>
         </ImageDisplay>
-        <Display>
+        {/* <Display>
           {loading && <p>Loading...</p>}
           {error && <p>{error.message}</p>}
           {userData &&
             userData.images.map((image) => (
               <Thumbnail key={image.url} src={image.url} alt="alt" />
             ))}
-        </Display>
+        </Display> */}
         <TagDisplay>
           <p>Tag-Display</p>
           {currentImage &&
