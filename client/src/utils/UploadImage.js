@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../components/Button";
 import UploadPreview from "../components/UploadPreview";
+import { Link } from "react-router-dom";
 
 export default function UploadImage() {
   const [uploadInput, setUploadInput] = useState("");
@@ -47,7 +48,9 @@ export default function UploadImage() {
     <form onSubmit={handleSubmit}>
       <input type="file" value={uploadInput} onChange={handleImageChange} />
       {previewSrc && <UploadPreview src={previewSrc} alt="" />}
-      <Button type="submit" label="Bild hochladen" />
+      <Link to="/tagging">
+        <Button type="submit" label="Bild hochladen" />
+      </Link>
     </form>
   );
 }
