@@ -44,7 +44,16 @@ const GalleryPage = () => {
       setCurrentImage(userData.images[0]);
     }
   }, [userData]);
-  console.log(currentImage);
+  console.log("currentImage:", currentImage);
+
+  const [indexOfCurrentImage, setIndexOfCurrentImage] = useState(null);
+  useEffect(() => {
+    if (currentImage) {
+      setIndexOfCurrentImage(userData.images.indexOf(currentImage));
+    }
+  }, [currentImage]);
+  console.log("indexOfCurrentImage:", indexOfCurrentImage);
+  // console.log(userData.images.length);
 
   // if (userData && currentImage) {
   //   console.log(userData.images.indexOf(currentImage));
@@ -69,20 +78,32 @@ const GalleryPage = () => {
 
   return (
     <>
-      <div>
-        <section>
-          <h2>Das hier ist die Album-Seite 🤩</h2>
-        </section>
-        <ImageDisplay>
-          <ImageContainer>
-            <Button label="◀" type="submit" onClick={previousPlease} />
-            {loading && <p>Loading...</p>}
-            {error && <p>{error.message}</p>}
-            {currentImage && <img src={currentImage.url} alt="" />}
-            <Button label="▶" type="submit" onClick={nextPlease} />
-          </ImageContainer>
-        </ImageDisplay>
-        {/* <Display>
+      {" "}
+      {userData && (
+        <div>
+          <section>
+            <h2>Das hier ist die Album-Seite 🤩</h2>
+          </section>
+          <ImageDisplay>
+            <ImageContainer>
+              <Button
+                label="◀"
+                type="submit"
+                onClick={previousPlease}
+                disabled={indexOfCurrentImage === 0}
+              />
+              {loading && <p>Loading...</p>}
+              {error && <p>{error.message}</p>}
+              {currentImage && <img src={currentImage.url} alt="" />}
+              <Button
+                label="▶"
+                type="submit"
+                onClick={nextPlease}
+                disabled={indexOfCurrentImage === userData.images.length - 1}
+              />
+            </ImageContainer>
+          </ImageDisplay>
+          {/* <Display>
           {loading && <p>Loading...</p>}
           {error && <p>{error.message}</p>}
           {userData &&
@@ -90,14 +111,15 @@ const GalleryPage = () => {
               <Thumbnail key={image.url} src={image.url} alt="alt" />
             ))}
         </Display> */}
-        <TagDisplay>
-          <p>Tag-Display</p>
-          {currentImage &&
-            currentImage.tags.map((tag, index) => (
-              <Button key={index} label={tag} />
-            ))}
-        </TagDisplay>
-      </div>
+          <TagDisplay>
+            <p>Tag-Display</p>
+            {currentImage &&
+              currentImage.tags.map((tag, index) => (
+                <Button key={index} label={tag} />
+              ))}
+          </TagDisplay>
+        </div>
+      )}{" "}
     </>
   );
 };
