@@ -5,17 +5,9 @@ import { Button } from "../components/Button";
 import { addNewTag } from "../utils/api";
 import { getImageObj } from "../utils/api";
 import useAsync from "../utils/useAsync";
+import { ImageDisplay } from "../components/Display";
+import { ImageContainer } from "../components/Display";
 
-const Display = styled.div`
-  border: solid 1px lightgray;
-  display: flex;
-  justify-content: center;
-`;
-const ImageContainer = styled.div`
-  height: 800px;
-  width: 800px;
-  border: solid 1px lightgray;
-`;
 const ImageSlide = styled.div`
   border: solid 1px lightgray;
   display: flex;
@@ -43,12 +35,6 @@ const TaggingPage = () => {
     doFetch();
   }, []);
 
-  if (userData) {
-    // console.log(userData.images[userData.images.length - 1].url);
-    // const selectedImage = userData.images[userData.images.length - 1];
-    // console.log(selectedImage.url);
-    // console.log(selectedImage.tags);
-  }
   const [tagName, setTagName] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   useEffect(() => {
@@ -57,6 +43,7 @@ const TaggingPage = () => {
     }
   }, [userData]);
   console.log(selectedImage);
+
   const [imgNr, setImgNr] = useState("");
   useEffect(() => {
     if (selectedImage) {
@@ -64,6 +51,14 @@ const TaggingPage = () => {
     }
   }, [selectedImage]);
   console.log(imgNr);
+
+  const [tagArray, setTagArray] = useState([]);
+  useEffect(() => {
+    if (selectedImage) {
+      setTagArray(selectedImage.tags);
+    }
+  }, [selectedImage]);
+  console.log(tagArray);
 
   const handleTagNameChange = (event) => {
     setTagName(event.target.value);
@@ -86,11 +81,11 @@ const TaggingPage = () => {
         <section>
           <h2>Das hier ist die Tagging-Seite 🤔</h2>
         </section>
-        <Display>
+        <ImageDisplay>
           <ImageContainer>
             {selectedImage && <img src={selectedImage.url} alt="" />}
           </ImageContainer>
-        </Display>
+        </ImageDisplay>
         <ImageSlide>
           {loading && <p>Loading...</p>}
           {error && <p>{error.message}</p>}
@@ -119,8 +114,7 @@ const TaggingPage = () => {
         <TagNotifier>
           {selectedImage && <p>Diese Tags hat das Bild schon:</p>}
           {selectedImage &&
-            selectedImage.tags.map((tag, index) => <p key={index}>{tag}</p>)}
-          {/* {selectedImage && selectedImage.tags === [] ? <p>Noch keine Tags vergeben</p> : 0} */}
+            tagArray.map((tag, index) => <p key={index}>{tag}</p>)}
         </TagNotifier>
       </div>
     </>
