@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Button } from "../components/Button";
 import UploadPreview from "../components/UploadPreview";
+import { useHistory } from "react-router-dom";
 
 export default function UploadImage() {
   const [uploadInput, setUploadInput] = useState("");
   const [previewSrc, setPreviewSrc] = useState("");
+  const history = useHistory();
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -28,6 +30,7 @@ export default function UploadImage() {
       console.log("No preview file");
     }
     uploadImage(previewSrc);
+    history.push("/tagging");
   };
 
   const uploadImage = async (base64EncodedImage) => {
