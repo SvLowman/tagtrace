@@ -44,7 +44,6 @@ const TaggingPage = () => {
       setSelectedImage(userData.images[userData.images.length - 1]);
     }
   }, [userData]);
-  // console.log(selectedImage);
 
   const [imgNr, setImgNr] = useState("");
   useEffect(() => {
@@ -52,7 +51,6 @@ const TaggingPage = () => {
       setImgNr(selectedImage.imgNr);
     }
   }, [selectedImage]);
-  // console.log(imgNr);
 
   const [tagArray, setTagArray] = useState([]);
   useEffect(() => {
@@ -60,7 +58,6 @@ const TaggingPage = () => {
       setTagArray(selectedImage.tags);
     }
   }, [selectedImage]);
-  // console.log(tagArray);
 
   useEffect(() => {
     refetch();
@@ -72,11 +69,6 @@ const TaggingPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // if (!tagName) {
-    //   console.log("No tag name");
-    // } else {
-    //   console.log("The fabulous tagName is:", tagName);
-    // }
     setTagArray([...tagArray, tagName]);
     addNewTag(userName, imgNr, tagName);
     setTagName("");

@@ -13,7 +13,6 @@ const TagDisplay = styled.div`
 
 const GalleryPage = () => {
   const userName = "sven";
-  // const currentTag = "3";
   const { data: userData, loading, error, doFetch } = useAsync(() =>
     getImageObj(userName)
   );
@@ -22,31 +21,12 @@ const GalleryPage = () => {
     doFetch();
   }, []);
 
-  // if (userData) {
-  //   const imagesWithTheSameTag = userData.images.filter((image) =>
-  //     image.tags.includes(currentTag)
-  //   );
-  //   console.log("imagesWithTheSameTag:", imagesWithTheSameTag);
-  //   console.log(imagesWithTheSameTag[0]);
-  // }
-
-  // const [imagesWithTheSameTag, setImagesWithTheSameTag] = useState([]);
-  // useEffect(() => {
-  //   if (userData) {
-  //     setImagesWithTheSameTag(
-  //       userData.images.filter((image) => image.tags.includes(currentTag))
-  //     );
-  //   }
-  // }, [userData]);
-  // console.log();
-
   const [currentImage, setCurrentImage] = useState(null);
   useEffect(() => {
     if (userData) {
       setCurrentImage(userData.images[0]);
     }
   }, [userData]);
-  console.log("currentImage:", currentImage);
 
   const [indexOfCurrentImage, setIndexOfCurrentImage] = useState(null);
   useEffect(() => {
