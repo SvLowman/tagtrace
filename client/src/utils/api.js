@@ -17,13 +17,12 @@ export async function postImageObj(userName, image) {
 }
 
 export async function addNewTag(userName, imgNr, tagName) {
-  const response = await fetch(`/api/users/${userName}/images/${imgNr}/tags`, {
+  await fetch(`/api/users/${userName}/images/${imgNr}/tags`, {
     method: "POST",
     body: JSON.stringify({ tagName }),
     headers: {
       "Content-Type": "application/json",
     },
   });
-  const newTagArray = await response.json();
-  return newTagArray;
+  return;
 }
