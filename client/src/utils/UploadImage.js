@@ -24,12 +24,12 @@ export default function UploadImage() {
     };
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!previewSrc) {
       console.log("No preview file");
     }
-    uploadImage(previewSrc);
+    await uploadImage(previewSrc);
     history.push("/tagging");
   };
 

@@ -4,9 +4,9 @@ import styled from "styled-components/macro";
 import { Button } from "../components/Button";
 import { addNewTag } from "../utils/api";
 import { getImageObj } from "../utils/api";
-import useAsync from "../utils/useAsync";
 import { ImageDisplay } from "../components/Display";
 import { ImageContainer } from "../components/Display";
+import { useQuery } from "react-query";
 
 const ImageSlide = styled.div`
   border: solid 1px lightgray;
@@ -28,21 +28,22 @@ const TagNotifier = styled.div`
 const TaggingPage = () => {
   const userName = "sven";
 
-  const { data: userData, loading, error, doFetch } = useAsync(() =>
-    getImageObj(userName)
-  );
-  useEffect(() => {
-    doFetch();
-  }, []);
+  const {
+    data: userData,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery("allImages", () => getImageObj(userName));
 
   const [tagName, setTagName] = useState("");
+
   const [selectedImage, setSelectedImage] = useState(null);
   useEffect(() => {
     if (userData) {
       setSelectedImage(userData.images[userData.images.length - 1]);
     }
   }, [userData]);
-  console.log(selectedImage);
 
   const [imgNr, setImgNr] = useState("");
   useEffect(() => {
@@ -50,7 +51,6 @@ const TaggingPage = () => {
       setImgNr(selectedImage.imgNr);
     }
   }, [selectedImage]);
-  console.log(imgNr);
 
   const [tagArray, setTagArray] = useState([]);
   useEffect(() => {
@@ -58,7 +58,10 @@ const TaggingPage = () => {
       setTagArray(selectedImage.tags);
     }
   }, [selectedImage]);
-  console.log(tagArray);
+
+  useEffect(() => {
+    refetch();
+  }, [tagArray, refetch]);
 
   const handleTagNameChange = (event) => {
     setTagName(event.target.value);
@@ -66,11 +69,7 @@ const TaggingPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!tagName) {
-      console.log("No tag name");
-    } else {
-      console.log("The fabulous tagName is:", tagName);
-    }
+    setTagArray([...tagArray, tagName]);
     addNewTag(userName, imgNr, tagName);
     setTagName("");
   };
@@ -87,8 +86,8 @@ const TaggingPage = () => {
           </ImageContainer>
         </ImageDisplay>
         <ImageSlide>
-          {loading && <p>Loading...</p>}
-          {error && <p>{error.message}</p>}
+          {isLoading && <p>Loading...</p>}
+          {isError && <p>{error}</p>}
           {userData &&
             userData.images.map((image) => (
               <Thumbnail
