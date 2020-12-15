@@ -1,6 +1,6 @@
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 // import Page from "./pages/Page";
@@ -14,6 +14,8 @@ import BottomNav from "./components/BottomNav";
 const queryClient = new QueryClient();
 
 function App() {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [allImages, setAllImages] = useState([]);
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
@@ -25,10 +27,20 @@ function App() {
                 <UploadPage />
               </Route>
               <Route exact path="/tagging">
-                <TaggingPage />
+                <TaggingPage
+                  selectedImage={selectedImage}
+                  setSelectedImage={setSelectedImage}
+                  allImages={allImages}
+                  setAllImages={setAllImages}
+                />
               </Route>
               <Route exact path="/gallery">
-                <GalleryPage />
+                <GalleryPage
+                  selectedImage={selectedImage}
+                  setSelectedImage={setSelectedImage}
+                  allImages={allImages}
+                  setAllImages={setAllImages}
+                />
               </Route>
             </Switch>
             <BottomNav />

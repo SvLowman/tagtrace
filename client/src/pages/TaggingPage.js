@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components/macro";
+import PropTypes from "prop-types";
 import { Button } from "../components/Button";
 import { addNewTag } from "../utils/api";
 import { getImageObj } from "../utils/api";
@@ -25,7 +26,12 @@ const TagNotifier = styled.div`
   border: solid 1px lightgray;
 `;
 
-const TaggingPage = () => {
+const TaggingPage = ({
+  selectedImage,
+  setSelectedImage,
+  allImages,
+  setAllImages,
+}) => {
   const userName = "sven";
 
   const {
@@ -36,14 +42,21 @@ const TaggingPage = () => {
     refetch,
   } = useQuery("allImages", () => getImageObj(userName));
 
-  const [tagName, setTagName] = useState("");
-
-  const [selectedImage, setSelectedImage] = useState(null);
+  // const [allImages, setAllImages] = useState([]);
   useEffect(() => {
     if (userData) {
-      setSelectedImage(userData.images[userData.images.length - 1]);
+      setAllImages(userData.images);
     }
-  }, [userData]);
+  }, [userData, setAllImages]);
+
+  const [tagName, setTagName] = useState("");
+
+  // const [selectedImage, setSelectedImage] = useState(null);
+  useEffect(() => {
+    if (userData) {
+      setSelectedImage(allImages[allImages.length - 1]);
+    }
+  }, [userData, allImages, setSelectedImage]);
 
   const [imgNr, setImgNr] = useState("");
   useEffect(() => {
@@ -89,7 +102,7 @@ const TaggingPage = () => {
           {isLoading && <p>Loading...</p>}
           {isError && <p>{error}</p>}
           {userData &&
-            userData.images.map((image) => (
+            allImages.map((image) => (
               <Thumbnail
                 style={{
                   border: selectedImage === image ? "2px solid red" : "",
@@ -121,3 +134,10 @@ const TaggingPage = () => {
 };
 
 export default TaggingPage;
+
+TaggingPage.propTypes = {
+  selectedImage: PropTypes.any,
+  setSelectedImage: PropTypes.any,
+  allImages: PropTypes.array,
+  setAllImages: PropTypes.array,
+};
