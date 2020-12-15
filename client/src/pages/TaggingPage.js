@@ -37,6 +37,7 @@ const TaggingPage = () => {
   } = useQuery("allImages", () => getImageObj(userName));
 
   const [tagName, setTagName] = useState("");
+
   const [selectedImage, setSelectedImage] = useState(null);
   useEffect(() => {
     if (userData) {
