@@ -26,12 +26,7 @@ const TagNotifier = styled.div`
   border: solid 1px lightgray;
 `;
 
-const TaggingPage = ({
-  selectedImage,
-  setSelectedImage,
-  allImages,
-  setAllImages,
-}) => {
+const TaggingPage = ({ selectedImage, setSelectedImage }) => {
   const userName = "sven";
 
   const {
@@ -42,7 +37,7 @@ const TaggingPage = ({
     refetch,
   } = useQuery("allImages", () => getImageObj(userName));
 
-  // const [allImages, setAllImages] = useState([]);
+  const [allImages, setAllImages] = useState([]);
   useEffect(() => {
     if (userData) {
       setAllImages(userData.images);
@@ -138,6 +133,4 @@ export default TaggingPage;
 TaggingPage.propTypes = {
   selectedImage: PropTypes.any,
   setSelectedImage: PropTypes.any,
-  allImages: PropTypes.any,
-  setAllImages: PropTypes.any,
 };

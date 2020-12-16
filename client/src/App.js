@@ -15,7 +15,6 @@ const queryClient = new QueryClient();
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [allImages, setAllImages] = useState([]);
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
@@ -30,16 +29,12 @@ function App() {
                 <TaggingPage
                   selectedImage={selectedImage}
                   setSelectedImage={setSelectedImage}
-                  allImages={allImages}
-                  setAllImages={setAllImages}
                 />
               </Route>
               <Route exact path="/gallery">
                 <GalleryPage
                   selectedImage={selectedImage}
                   setSelectedImage={setSelectedImage}
-                  allImages={allImages}
-                  setAllImages={setAllImages}
                 />
               </Route>
             </Switch>

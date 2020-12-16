@@ -2,30 +2,26 @@ import React, { useState } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
-// import { getImageObj } from "../utils/api";
 // import useAsync from "../utils/useAsync";
 import { Button } from "../components/Button";
 import { ImageDisplay } from "../components/Display";
 import { ImageContainer } from "../components/Display";
+import { getImageObj } from "../utils/api";
+import { useQuery } from "react-query";
 
 const TagDisplay = styled.div`
   border: solid 1px lightgray;
 `;
 
-const GalleryPage = ({
-  selectedImage,
-  setSelectedImage,
-  allImages,
-  setAllImages,
-}) => {
-  // const userName = "sven";
-  // const { data: userData, loading, error, doFetch } = useAsync(() =>
-  //   getImageObj(userName)
-  // );
-
-  // useEffect(() => {
-  //   doFetch();
-  // }, []);
+const GalleryPage = ({ selectedImage, setSelectedImage }) => {
+  const userName = "sven";
+  const {
+    data: userData,
+    isLoading,
+    isError,
+    error,
+    // refetch,
+  } = useQuery("allImages", () => getImageObj(userName));
 
   // const [currentImage, setCurrentImage] = useState(null);
   // useEffect(() => {
@@ -33,6 +29,13 @@ const GalleryPage = ({
   //     setCurrentImage(userData.images[0]);
   //   }
   // }, [userData]);
+
+  const [allImages, setAllImages] = useState([]);
+  useEffect(() => {
+    if (userData) {
+      setAllImages(userData.images);
+    }
+  }, [userData, setAllImages]);
 
   const [selectedTag, setSelectedTag] = useState("");
 
@@ -67,8 +70,8 @@ const GalleryPage = ({
                 onClick={loadPreviousImage}
                 disabled={!previousImage}
               />
-              {/* {loading && <p>Loading...</p>}
-              {error && <p>{error.message}</p>} */}
+              {isLoading && <p>Loading...</p>}
+              {isError && <p>{error}</p>}
               {selectedImage && <img src={selectedImage.url} alt="" />}
               <Button
                 label="▶"
@@ -104,6 +107,4 @@ export default GalleryPage;
 GalleryPage.propTypes = {
   selectedImage: PropTypes.any,
   setSelectedImage: PropTypes.any,
-  allImages: PropTypes.array,
-  setAllImages: PropTypes.array,
 };
