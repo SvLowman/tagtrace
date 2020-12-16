@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
-// import useAsync from "../utils/useAsync";
 import { Button } from "../components/Button";
 import { ImageDisplay } from "../components/Display";
 import { ImageContainer } from "../components/Display";
@@ -15,20 +14,10 @@ const TagDisplay = styled.div`
 
 const GalleryPage = ({ selectedImage, setSelectedImage }) => {
   const userName = "sven";
-  const {
-    data: userData,
-    isLoading,
-    isError,
-    error,
-    // refetch,
-  } = useQuery("allImages", () => getImageObj(userName));
-
-  // const [currentImage, setCurrentImage] = useState(null);
-  // useEffect(() => {
-  //   if (userData) {
-  //     setCurrentImage(userData.images[0]);
-  //   }
-  // }, [userData]);
+  const { data: userData, isLoading, isError, error } = useQuery(
+    "allImages",
+    () => getImageObj(userName)
+  );
 
   const [allImages, setAllImages] = useState([]);
   useEffect(() => {
@@ -93,8 +82,6 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
                   }}
                 />
               ))}
-            {console.log("selectedTag:", selectedTag)}
-            {console.log("filteredImages:", filteredImages)}
           </TagDisplay>
         </div>
       )}{" "}

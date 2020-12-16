@@ -46,7 +46,6 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
 
   const [tagName, setTagName] = useState("");
 
-  // const [selectedImage, setSelectedImage] = useState(null);
   useEffect(() => {
     if (userData) {
       setSelectedImage(allImages[allImages.length - 1]);

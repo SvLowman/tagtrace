@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-// import Page from "./pages/Page";
 import PageContainer from "./components/PageContainer";
 import TopElement from "./components/TopElement";
 import UploadPage from "./pages/UploadPage";
