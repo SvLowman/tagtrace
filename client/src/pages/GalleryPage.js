@@ -91,13 +91,15 @@ const GalleryPage = ({
                     (() => setSelectedTag(tag),
                     () =>
                       setAllImages(
-                        allImages.filter((image) => image.tags.includes(tag))
+                        allImages.filter((image) =>
+                          image.tags.includes(selectedTag)
+                        )
                       ))
                   }
                 />
               ))}
-            {console.log(selectedTag)}
-            {console.log(allImages)}
+            {console.log("selectedTag:", selectedTag)}
+            {console.log("allImages:", allImages)}
           </TagDisplay>
         </div>
       )}{" "}

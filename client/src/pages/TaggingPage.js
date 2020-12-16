@@ -138,6 +138,6 @@ export default TaggingPage;
 TaggingPage.propTypes = {
   selectedImage: PropTypes.any,
   setSelectedImage: PropTypes.any,
-  allImages: PropTypes.array,
-  setAllImages: PropTypes.array,
+  allImages: PropTypes.any,
+  setAllImages: PropTypes.any,
 };
