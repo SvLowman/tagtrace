@@ -34,23 +34,21 @@ const GalleryPage = ({
   //   }
   // }, [userData]);
 
-  const [indexOfSelectedImage, setIndexOfSelectedImage] = useState(null);
-  useEffect(() => {
-    if (selectedImage) {
-      setIndexOfSelectedImage(allImages.indexOf(selectedImage));
-    }
-  }, [selectedImage, allImages]);
-
   const [selectedTag, setSelectedTag] = useState("");
 
-  const nextImage = () => {
-    const indexOfSelectedImage = allImages.indexOf(selectedImage);
-    setSelectedImage(allImages[indexOfSelectedImage + 1]);
+  const filteredImages = selectedTag
+    ? allImages.filter((image) => image.tags.includes(selectedTag))
+    : allImages;
+
+  const indexOfSelectedImage = filteredImages.indexOf(selectedImage);
+  const nextImage = filteredImages[indexOfSelectedImage + 1];
+  const loadNextImage = () => {
+    setSelectedImage(nextImage);
   };
 
-  const previousImage = () => {
-    const indexOfSelectedImage = allImages.indexOf(selectedImage);
-    setSelectedImage(allImages[indexOfSelectedImage - 1]);
+  const previousImage = filteredImages[indexOfSelectedImage - 1];
+  const loadPreviousImage = () => {
+    setSelectedImage(previousImage);
   };
 
   return (
@@ -66,8 +64,8 @@ const GalleryPage = ({
               <Button
                 label="◀"
                 type="submit"
-                onClick={previousImage}
-                disabled={indexOfSelectedImage === 0}
+                onClick={loadPreviousImage}
+                disabled={!previousImage}
               />
               {/* {loading && <p>Loading...</p>}
               {error && <p>{error.message}</p>} */}
@@ -75,31 +73,25 @@ const GalleryPage = ({
               <Button
                 label="▶"
                 type="submit"
-                onClick={nextImage}
-                disabled={indexOfSelectedImage === allImages.length - 1}
+                onClick={loadNextImage}
+                disabled={!nextImage}
               />
             </ImageContainer>
           </ImageDisplay>
           <TagDisplay>
             <p>Tag-Display</p>
             {selectedImage &&
-              selectedImage.tags.map((tag, index) => (
+              selectedImage.tags.map((tag) => (
                 <Button
-                  key={index}
+                  key={tag}
                   label={tag}
-                  onClick={
-                    (() => setSelectedTag(tag),
-                    () =>
-                      setAllImages(
-                        allImages.filter((image) =>
-                          image.tags.includes(selectedTag)
-                        )
-                      ))
-                  }
+                  onClick={() => {
+                    setSelectedTag(tag);
+                  }}
                 />
               ))}
             {console.log("selectedTag:", selectedTag)}
-            {console.log("allImages:", allImages)}
+            {console.log("filteredImages:", filteredImages)}
           </TagDisplay>
         </div>
       )}{" "}
