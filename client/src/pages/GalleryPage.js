@@ -87,10 +87,17 @@ const GalleryPage = ({
                 <Button
                   key={index}
                   label={tag}
-                  onClick={() => setSelectedTag(tag)}
+                  onClick={
+                    (() => setSelectedTag(tag),
+                    () =>
+                      setAllImages(
+                        allImages.filter((image) => image.tags.includes(tag))
+                      ))
+                  }
                 />
               ))}
             {console.log(selectedTag)}
+            {console.log(allImages)}
           </TagDisplay>
         </div>
       )}{" "}
