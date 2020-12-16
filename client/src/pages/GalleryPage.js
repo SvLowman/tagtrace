@@ -41,6 +41,8 @@ const GalleryPage = ({
     }
   }, [selectedImage, allImages]);
 
+  const [selectedTag, setSelectedTag] = useState("");
+
   const nextImage = () => {
     const indexOfSelectedImage = allImages.indexOf(selectedImage);
     setSelectedImage(allImages[indexOfSelectedImage + 1]);
@@ -82,8 +84,13 @@ const GalleryPage = ({
             <p>Tag-Display</p>
             {selectedImage &&
               selectedImage.tags.map((tag, index) => (
-                <Button key={index} label={tag} />
+                <Button
+                  key={index}
+                  label={tag}
+                  onClick={() => setSelectedTag(tag)}
+                />
               ))}
+            {console.log(selectedTag)}
           </TagDisplay>
         </div>
       )}{" "}
