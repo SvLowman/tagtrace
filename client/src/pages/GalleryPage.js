@@ -1,54 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
-import { useEffect } from "react";
-import { getImageObj } from "../utils/api";
-import useAsync from "../utils/useAsync";
+import PropTypes from "prop-types";
 import { Button } from "../components/Button";
-import { ImageDisplay } from "../components/Display";
-import { ImageContainer } from "../components/Display";
+import { ImageDisplay, ImageContainer } from "../components/Display";
+import { getImageObj } from "../utils/api";
+import { useQuery } from "react-query";
 
 const TagDisplay = styled.div`
   border: solid 1px lightgray;
 `;
 
-const GalleryPage = () => {
+const GalleryPage = ({ selectedImage, setSelectedImage }) => {
   const userName = "sven";
-  const { data: userData, loading, error, doFetch } = useAsync(() =>
-    getImageObj(userName)
+  const { data: userData, isLoading, isError, error } = useQuery(
+    "allImages",
+    () => getImageObj(userName)
   );
 
-  useEffect(() => {
-    doFetch();
-  }, []);
-
-  const [currentImage, setCurrentImage] = useState(null);
+  const [allImages, setAllImages] = useState([]);
   useEffect(() => {
     if (userData) {
-      setCurrentImage(userData.images[0]);
+      setAllImages(userData.images);
     }
-  }, [userData]);
+  }, [userData, setAllImages]);
 
-  const [indexOfCurrentImage, setIndexOfCurrentImage] = useState(null);
-  useEffect(() => {
-    if (currentImage) {
-      setIndexOfCurrentImage(userData.images.indexOf(currentImage));
-    }
-  }, [currentImage]);
+  const [selectedTag, setSelectedTag] = useState("");
 
-  const nextImage = () => {
-    const indexOfCurrentImage = userData.images.indexOf(currentImage);
-    setCurrentImage(userData.images[indexOfCurrentImage + 1]);
+  const filteredImages = selectedTag
+    ? allImages.filter((image) => image.tags.includes(selectedTag))
+    : allImages;
+
+  const indexOfSelectedImage = filteredImages.indexOf(selectedImage);
+  const nextImage = filteredImages[indexOfSelectedImage + 1];
+  const loadNextImage = () => {
+    setSelectedImage(nextImage);
   };
 
-  const previousImage = () => {
-    const indexOfCurrentImage = userData.images.indexOf(currentImage);
-    setCurrentImage(userData.images[indexOfCurrentImage - 1]);
+  const previousImage = filteredImages[indexOfSelectedImage - 1];
+  const loadPreviousImage = () => {
+    setSelectedImage(previousImage);
   };
 
   return (
     <>
-      {" "}
-      {userData && (
+      {allImages && (
         <div>
           <section>
             <h2>Das hier ist die Album-Seite 🤩</h2>
@@ -58,31 +53,42 @@ const GalleryPage = () => {
               <Button
                 label="◀"
                 type="submit"
-                onClick={previousImage}
-                disabled={indexOfCurrentImage === 0}
+                onClick={loadPreviousImage}
+                disabled={!previousImage}
               />
-              {loading && <p>Loading...</p>}
-              {error && <p>{error.message}</p>}
-              {currentImage && <img src={currentImage.url} alt="" />}
+              {isLoading && <p>Loading...</p>}
+              {isError && <p>{error}</p>}
+              {selectedImage && <img src={selectedImage.url} alt="" />}
               <Button
                 label="▶"
                 type="submit"
-                onClick={nextImage}
-                disabled={indexOfCurrentImage === userData.images.length - 1}
+                onClick={loadNextImage}
+                disabled={!nextImage}
               />
             </ImageContainer>
           </ImageDisplay>
           <TagDisplay>
             <p>Tag-Display</p>
-            {currentImage &&
-              currentImage.tags.map((tag, index) => (
-                <Button key={index} label={tag} />
+            {selectedImage &&
+              selectedImage.tags.map((tag) => (
+                <Button
+                  key={tag}
+                  label={tag}
+                  onClick={() => {
+                    setSelectedTag(tag);
+                  }}
+                />
               ))}
           </TagDisplay>
         </div>
-      )}{" "}
+      )}
     </>
   );
 };
 
 export default GalleryPage;
+
+GalleryPage.propTypes = {
+  selectedImage: PropTypes.any,
+  setSelectedImage: PropTypes.any,
+};
