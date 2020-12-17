@@ -1,12 +1,9 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import { Button } from "../components/Button";
-import { addNewTag } from "../utils/api";
-import { getImageObj } from "../utils/api";
-import { ImageDisplay } from "../components/Display";
-import { ImageContainer } from "../components/Display";
+import { addNewTag, getImageObj } from "../utils/api";
+import { ImageDisplay, ImageContainer } from "../components/Display";
 import { useQuery } from "react-query";
 
 const ImageSlide = styled.div`

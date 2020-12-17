@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
 import { Button } from "../components/Button";
-import { ImageDisplay } from "../components/Display";
-import { ImageContainer } from "../components/Display";
+import { ImageDisplay, ImageContainer } from "../components/Display";
 import { getImageObj } from "../utils/api";
 import { useQuery } from "react-query";
 
@@ -45,7 +43,6 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
 
   return (
     <>
-      {" "}
       {allImages && (
         <div>
           <section>
@@ -84,7 +81,7 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
               ))}
           </TagDisplay>
         </div>
-      )}{" "}
+      )}
     </>
   );
 };

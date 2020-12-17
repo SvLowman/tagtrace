@@ -24,13 +24,13 @@ function App() {
               <Route exact path="/">
                 <UploadPage />
               </Route>
-              <Route exact path="/tagging">
+              <Route path="/tagging">
                 <TaggingPage
                   selectedImage={selectedImage}
                   setSelectedImage={setSelectedImage}
                 />
               </Route>
-              <Route exact path="/gallery">
+              <Route path="/gallery">
                 <GalleryPage
                   selectedImage={selectedImage}
                   setSelectedImage={setSelectedImage}
