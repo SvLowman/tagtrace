@@ -3,7 +3,13 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 
-const { getImageDataOfUser, setImage, setTag } = require("./lib/data");
+const {
+  getImageDataOfUser,
+  setImage,
+  setTag,
+  deleteImage,
+  deleteTag,
+} = require("./lib/data");
 const { connect } = require("./lib/database");
 
 const app = express();
@@ -69,6 +75,41 @@ app.post(
     } catch (error) {
       console.error(error);
       response.status(500).send("Error 500 occured trying POST.");
+    }
+  }
+);
+
+// DELETE-Routes to MongoDB
+app.delete("/api/users/:userName/images/:imgNr", async (request, response) => {
+  const { imgNr } = request.params;
+  try {
+    const imgDel = await deleteImage(imgNr);
+    if (imgDel.deletedCount === 0) {
+      response.status(404).send("Not found");
+      return;
+    }
+    response.send(`Image ${imgNr} deleted.`);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("Unexpected error");
+  }
+});
+
+app.delete(
+  "/api/users/:userName/images/:imgNr/tags/:tagName",
+  async (request, response) => {
+    const { imgNr } = request.params;
+    const { tagName } = request.params;
+    try {
+      const tagDel = await deleteTag(imgNr);
+      if (tagDel.deletedCount === 0) {
+        response.status(404).send("Not found");
+        return;
+      }
+      response.send(`Tag ${tagName} deleted.`);
+    } catch (error) {
+      console.error(error);
+      response.status(500).send("UnexpectedError");
     }
   }
 );

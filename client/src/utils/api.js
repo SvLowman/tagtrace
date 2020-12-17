@@ -26,3 +26,12 @@ export async function addNewTag(userName, imgNr, tagName) {
   });
   return;
 }
+
+export async function deleteImageObj(userName, imgNr) {
+  const response = await fetch(`/api/users/${userName}/images/${imgNr}`, {
+    method: "DELETE",
+  });
+  const answer = await response.text();
+  console.log(answer);
+  return answer;
+}
