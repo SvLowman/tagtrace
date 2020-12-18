@@ -106,7 +106,7 @@ app.delete(
         response.status(404).send("Not found");
         return;
       }
-      response.send(`Tag ${tagName} deleted.`);
+      response.send(`Tag ${tagName} deleted; ${tagDel.deletedCount}`);
     } catch (error) {
       console.error(error);
       response.status(500).send("UnexpectedError");

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import { Button } from "../components/Button";
-import { addNewTag } from "../utils/api";
+import { addNewTag, deleteImageObj } from "../utils/api";
 import { getImageObj } from "../utils/api";
 import { ImageDisplay } from "../components/Display";
 import { ImageContainer } from "../components/Display";
@@ -70,6 +70,10 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
     refetch();
   }, [tagArray, refetch]);
 
+  const handleDelete = async () => {
+    await deleteImageObj(userName, imgNr);
+  };
+
   const handleTagNameChange = (event) => {
     setTagName(event.target.value);
   };
@@ -90,6 +94,7 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
         <ImageDisplay>
           <ImageContainer>
             {selectedImage && <img src={selectedImage.url} alt="" />}
+            <Button label="✖" onClick={handleDelete} />
           </ImageContainer>
         </ImageDisplay>
         <ImageSlide>
