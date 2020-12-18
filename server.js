@@ -101,12 +101,12 @@ app.delete(
     const { imgNr } = request.params;
     const { tagName } = request.params;
     try {
-      const tagDel = await deleteTag(imgNr);
-      if (tagDel.deletedCount === 0) {
+      const tagDel = await deleteTag(imgNr, tagName);
+      if (tagDel.modifiedCount === 0) {
         response.status(404).send("Not found");
         return;
       }
-      response.send(`Tag ${tagName} deleted; ${tagDel.deletedCount}`);
+      response.send(`Tag ${tagName} deleted; ${tagDel.modifiedCount}`);
     } catch (error) {
       console.error(error);
       response.status(500).send("UnexpectedError");

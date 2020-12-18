@@ -95,7 +95,7 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
         <ImageDisplay>
           <ImageContainer>
             {selectedImage && <img src={selectedImage.url} alt="" />}
-            <Button label="✖" onClick={handleDelete} />
+            <Button label="❌" onClick={handleDelete}></Button>
           </ImageContainer>
         </ImageDisplay>
         <ImageSlide>
