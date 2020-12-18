@@ -68,10 +68,11 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
 
   useEffect(() => {
     refetch();
-  }, [tagArray, refetch]);
+  }, [tagArray, allImages, refetch]);
 
   const handleDelete = async () => {
     await deleteImageObj(userName, imgNr);
+    setAllImages([...allImages]);
   };
 
   const handleTagNameChange = (event) => {
