@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import { Button } from "../components/Button";
-import { addNewTag, getImageObj } from "../utils/api";
+import { getImageObject, addNewTag, deleteImageObj, deleteTagItem } from "../utils/api";
 import { ImageDisplay, ImageContainer } from "../components/Display";
 import { useQuery } from "react-query";
 
@@ -50,22 +50,28 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
   }, [userData, allImages, setSelectedImage]);
 
   const [imgNr, setImgNr] = useState("");
+  const [tagArray, setTagArray] = useState([]);
+
   useEffect(() => {
     if (selectedImage) {
       setImgNr(selectedImage.imgNr);
-    }
-  }, [selectedImage]);
-
-  const [tagArray, setTagArray] = useState([]);
-  useEffect(() => {
-    if (selectedImage) {
       setTagArray(selectedImage.tags);
     }
   }, [selectedImage]);
 
   useEffect(() => {
     refetch();
-  }, [tagArray, refetch]);
+  }, [tagArray, allImages, refetch]);
+
+  const handleImageDelete = async () => {
+    await deleteImageObj(userName, imgNr);
+    setAllImages([...allImages]);
+  };
+
+  const handleTagDelete = async (tag) => {
+    await deleteTagItem(userName, imgNr, tag);
+    setTagArray([...tagArray]);
+  };
 
   const handleTagNameChange = (event) => {
     setTagName(event.target.value);
@@ -87,6 +93,7 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
         <ImageDisplay>
           <ImageContainer>
             {selectedImage && <img src={selectedImage.url} alt="" />}
+            <Button label="❌" onClick={handleImageDelete}></Button>
           </ImageContainer>
         </ImageDisplay>
         <ImageSlide>
@@ -109,6 +116,7 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
           <input
             type="text"
             placeholder="Tag setzen"
+            required="required"
             value={tagName}
             onChange={handleTagNameChange}
           ></input>
@@ -117,7 +125,12 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
         <TagNotifier>
           {selectedImage && <p>Diese Tags hat das Bild schon:</p>}
           {selectedImage &&
-            tagArray.map((tag, index) => <p key={index}>{tag}</p>)}
+            tagArray.map((tag, index) => (
+              <div key={index}>
+                {tag}
+                <Button label="❌" onClick={() => handleTagDelete(tag)} />
+              </div>
+            ))}
         </TagNotifier>
       </div>
     </>
