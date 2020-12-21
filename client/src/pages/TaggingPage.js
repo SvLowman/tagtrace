@@ -119,6 +119,7 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
           <input
             type="text"
             placeholder="Tag setzen"
+            required="required"
             value={tagName}
             onChange={handleTagNameChange}
           ></input>

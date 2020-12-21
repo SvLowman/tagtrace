@@ -88,7 +88,7 @@ app.delete("/api/users/:userName/images/:imgNr", async (request, response) => {
       response.status(404).send("Not found");
       return;
     }
-    response.send(`Image ${imgNr} deleted.`);
+    response.status(200).send(`Image ${imgNr} deleted.`);
   } catch (error) {
     console.error(error);
     response.status(500).send("Unexpected error");
@@ -106,7 +106,9 @@ app.delete(
         response.status(404).send("Not found");
         return;
       }
-      response.send(`Tag ${tagName} deleted; ${tagDel.modifiedCount}`);
+      response
+        .status(200)
+        .send(`Tag ${tagName} deleted; ${tagDel.modifiedCount}`);
     } catch (error) {
       console.error(error);
       response.status(500).send("UnexpectedError");
