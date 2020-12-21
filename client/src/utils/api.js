@@ -32,7 +32,6 @@ export async function deleteImageObj(userName, imgNr) {
     method: "DELETE",
   });
   const answer = await response.text();
-  console.log(answer);
   return answer;
 }
 
@@ -44,6 +43,5 @@ export async function deleteTagItem(userName, imgNr, tagName) {
     }
   );
   const answer = await response.text();
-  console.log(answer);
   return answer;
 }

@@ -53,15 +53,11 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
   }, [userData, allImages, setSelectedImage]);
 
   const [imgNr, setImgNr] = useState("");
+  const [tagArray, setTagArray] = useState([]);
+
   useEffect(() => {
     if (selectedImage) {
       setImgNr(selectedImage.imgNr);
-    }
-  }, [selectedImage]);
-
-  const [tagArray, setTagArray] = useState([]);
-  useEffect(() => {
-    if (selectedImage) {
       setTagArray(selectedImage.tags);
     }
   }, [selectedImage]);
@@ -70,8 +66,6 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
     refetch();
   }, [tagArray, allImages, refetch]);
 
-  // const [tagToDelete, setTagToDelete] = useState("");
-
   const handleImageDelete = async () => {
     await deleteImageObj(userName, imgNr);
     setAllImages([...allImages]);
@@ -79,7 +73,6 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
 
   const handleTagDelete = async (tag) => {
     await deleteTagItem(userName, imgNr, tag);
-    console.log("handleTagDelete ausgeführt mit dem Tag:", tag);
     setTagArray([...tagArray]);
   };
 
