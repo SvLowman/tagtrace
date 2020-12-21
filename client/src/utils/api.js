@@ -35,3 +35,15 @@ export async function deleteImageObj(userName, imgNr) {
   console.log(answer);
   return answer;
 }
+
+export async function deleteTagItem(userName, imgNr, tagName) {
+  const response = await fetch(
+    `/api/users/${userName}/images/${imgNr}/tags/${tagName}`,
+    {
+      method: "DELETE",
+    }
+  );
+  const answer = await response.text();
+  console.log(answer);
+  return answer;
+}

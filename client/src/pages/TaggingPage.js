@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import { Button } from "../components/Button";
-import { addNewTag, deleteImageObj } from "../utils/api";
+import { addNewTag, deleteImageObj, deleteTagItem } from "../utils/api";
 import { getImageObj } from "../utils/api";
 import { ImageDisplay } from "../components/Display";
 import { ImageContainer } from "../components/Display";
@@ -70,9 +70,16 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
     refetch();
   }, [tagArray, allImages, refetch]);
 
-  const handleDelete = async () => {
+  const [tagToDelete, setTagToDelete] = useState("");
+
+  const handleImageDelete = async () => {
     await deleteImageObj(userName, imgNr);
     setAllImages([...allImages]);
+  };
+
+  const handleTagDelete = async () => {
+    await deleteTagItem(userName, imgNr, tagToDelete);
+    console.log("handleTagDelete ausgeführt mit dem Tag:", tagToDelete);
   };
 
   const handleTagNameChange = (event) => {
@@ -95,7 +102,7 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
         <ImageDisplay>
           <ImageContainer>
             {selectedImage && <img src={selectedImage.url} alt="" />}
-            <Button label="❌" onClick={handleDelete}></Button>
+            <Button label="❌" onClick={handleImageDelete}></Button>
           </ImageContainer>
         </ImageDisplay>
         <ImageSlide>
@@ -126,7 +133,15 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
         <TagNotifier>
           {selectedImage && <p>Diese Tags hat das Bild schon:</p>}
           {selectedImage &&
-            tagArray.map((tag, index) => <p key={index}>{tag}</p>)}
+            tagArray.map((tag, index) => (
+              <div key={index}>
+                {tag}
+                <Button
+                  label="❌"
+                  onClick={/*setTagToDelete(tag),*/ handleTagDelete}
+                />
+              </div>
+            ))}
         </TagNotifier>
       </div>
     </>
