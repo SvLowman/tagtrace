@@ -70,16 +70,17 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
     refetch();
   }, [tagArray, allImages, refetch]);
 
-  const [tagToDelete, setTagToDelete] = useState("");
+  // const [tagToDelete, setTagToDelete] = useState("");
 
   const handleImageDelete = async () => {
     await deleteImageObj(userName, imgNr);
     setAllImages([...allImages]);
   };
 
-  const handleTagDelete = async () => {
-    await deleteTagItem(userName, imgNr, tagToDelete);
-    console.log("handleTagDelete ausgeführt mit dem Tag:", tagToDelete);
+  const handleTagDelete = async (tag) => {
+    await deleteTagItem(userName, imgNr, tag);
+    console.log("handleTagDelete ausgeführt mit dem Tag:", tag);
+    setTagArray([...tagArray]);
   };
 
   const handleTagNameChange = (event) => {
@@ -136,10 +137,7 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
             tagArray.map((tag, index) => (
               <div key={index}>
                 {tag}
-                <Button
-                  label="❌"
-                  onClick={/*setTagToDelete(tag),*/ handleTagDelete}
-                />
+                <Button label="❌" onClick={() => handleTagDelete(tag)} />
               </div>
             ))}
         </TagNotifier>
