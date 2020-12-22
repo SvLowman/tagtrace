@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import { Button } from "../components/Button";
-import { getImageObject, addNewTag, deleteImageObj, deleteTagItem } from "../utils/api";
+import {
+  getImageObj,
+  addNewTag,
+  deleteImageObj,
+  deleteTagItem,
+} from "../utils/api";
 import { ImageDisplay, ImageContainer } from "../components/Display";
 import { useQuery } from "react-query";
 
