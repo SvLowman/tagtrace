@@ -10,6 +10,11 @@ const TagDisplay = styled.div`
   border: solid 1px lightgray;
 `;
 
+const Image = styled.img`
+  max-height: 100%;
+  max-width: 100%;
+`;
+
 const GalleryPage = ({ selectedImage, setSelectedImage }) => {
   const userName = "sven";
   const { data: userData, isLoading, isError, error } = useQuery(
@@ -48,25 +53,23 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
           <section>
             <h2>Das hier ist die Album-Seite 🤩</h2>
           </section>
-          <ImageDisplay>
-            <ImageContainer>
-              <Button
-                label="◀"
-                type="submit"
-                onClick={loadPreviousImage}
-                disabled={!previousImage}
-              />
-              {isLoading && <p>Loading...</p>}
-              {isError && <p>{error}</p>}
-              {selectedImage && <img src={selectedImage.url} alt="" />}
-              <Button
-                label="▶"
-                type="submit"
-                onClick={loadNextImage}
-                disabled={!nextImage}
-              />
-            </ImageContainer>
-          </ImageDisplay>
+          <ImageContainer>
+            <Button
+              label="◀"
+              type="submit"
+              onClick={loadPreviousImage}
+              disabled={!previousImage}
+            />
+            {isLoading && <p>Loading...</p>}
+            {isError && <p>{error}</p>}
+            {selectedImage && <Image src={selectedImage.url} alt="" />}
+            <Button
+              label="▶"
+              type="submit"
+              onClick={loadNextImage}
+              disabled={!nextImage}
+            />
+          </ImageContainer>
           <TagDisplay>
             <p>Tag-Display</p>
             {selectedImage &&

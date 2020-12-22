@@ -1,12 +1,17 @@
 import styled from "styled-components/macro";
 
 export const ImageDisplay = styled.div`
-  border: solid 1px lightgray;
-  display: flex;
-  justify-content: center;
+  /* border: solid 1px orange;
+
+  max-width: 100%;
+  max-height: 100%; */
 `;
 export const ImageContainer = styled.div`
-  height: 800px;
-  width: 800px;
-  border: solid 1px lightgray;
+  width: 100%;
+  height: 100vw;
+  border: solid 1px red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  object-fit: cover;
 `;

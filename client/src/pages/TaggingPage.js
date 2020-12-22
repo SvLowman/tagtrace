@@ -11,6 +11,11 @@ import {
 import { ImageDisplay, ImageContainer } from "../components/Display";
 import { useQuery } from "react-query";
 
+const Image = styled.img`
+  max-height: 100%;
+  max-width: 100%;
+`;
+
 const ImageSlide = styled.div`
   border: solid 1px lightgray;
   display: flex;
@@ -97,7 +102,7 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
         </section>
         <ImageDisplay>
           <ImageContainer>
-            {selectedImage && <img src={selectedImage.url} alt="" />}
+            {selectedImage && <Image src={selectedImage.url} alt="" />}
             <Button label="❌" onClick={handleImageDelete}></Button>
           </ImageContainer>
         </ImageDisplay>
