@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import { Button } from "../components/Button";
-import { ImageDisplay, ImageContainer } from "../components/Display";
+import { ImageContainer } from "../components/Display";
 import { getImageObj } from "../utils/api";
 import { useQuery } from "react-query";
 
@@ -13,6 +13,20 @@ const TagDisplay = styled.div`
 const Image = styled.img`
   max-height: 100%;
   max-width: 100%;
+`;
+
+const NextImageButton = styled.button`
+  border: solid 1px blue;
+  position: absolute;
+  align-self: flex-end;
+  right: 0;
+`;
+
+const PreviousImageButton = styled.button`
+  border: solid 1px blue;
+  position: absolute;
+  align-self: flex-end;
+  left: 0;
 `;
 
 const GalleryPage = ({ selectedImage, setSelectedImage }) => {
@@ -54,21 +68,25 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
             <h2>Das hier ist die Album-Seite 🤩</h2>
           </section>
           <ImageContainer>
-            <Button
+            <PreviousImageButton
               label="◀"
               type="submit"
               onClick={loadPreviousImage}
               disabled={!previousImage}
-            />
+            >
+              ◀
+            </PreviousImageButton>
             {isLoading && <p>Loading...</p>}
             {isError && <p>{error}</p>}
             {selectedImage && <Image src={selectedImage.url} alt="" />}
-            <Button
+            <NextImageButton
               label="▶"
               type="submit"
               onClick={loadNextImage}
               disabled={!nextImage}
-            />
+            >
+              ▶
+            </NextImageButton>
           </ImageContainer>
           <TagDisplay>
             <p>Tag-Display</p>

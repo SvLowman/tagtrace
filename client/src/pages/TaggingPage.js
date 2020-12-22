@@ -8,12 +8,20 @@ import {
   deleteImageObj,
   deleteTagItem,
 } from "../utils/api";
-import { ImageDisplay, ImageContainer } from "../components/Display";
+import { ImageContainer } from "../components/Display";
 import { useQuery } from "react-query";
 
 const Image = styled.img`
   max-height: 100%;
   max-width: 100%;
+  position: relative;
+`;
+
+const ImageDeleteButton = styled.button`
+  border: solid 1px red;
+  position: absolute;
+  align-self: flex-end;
+  right: 0;
 `;
 
 const ImageSlide = styled.div`
@@ -100,12 +108,12 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
         <section>
           <h2>Das hier ist die Tagging-Seite 🤔</h2>
         </section>
-        <ImageDisplay>
-          <ImageContainer>
-            {selectedImage && <Image src={selectedImage.url} alt="" />}
-            <Button label="❌" onClick={handleImageDelete}></Button>
-          </ImageContainer>
-        </ImageDisplay>
+        <ImageContainer>
+          {selectedImage && <Image src={selectedImage.url} alt="" />}
+          <ImageDeleteButton label="❌" onClick={handleImageDelete}>
+            ❌
+          </ImageDeleteButton>
+        </ImageContainer>
         <ImageSlide>
           {isLoading && <p>Loading...</p>}
           {isError && <p>{error}</p>}
