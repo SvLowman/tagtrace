@@ -29,11 +29,25 @@ const ImageSlide = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  gap: 0.5rem;
+  padding: 1rem;
+`;
+const ThumbnailContainer = styled.div`
+  width: 4rem;
+  height: 4rem;
+  min-width: 4rem;
+  border: solid 1px blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const Thumbnail = styled.img`
-  width: 10vw;
-  margin: 0 0.5rem;
+  max-width: 100%;
+  max-height: 100%;
 `;
+
 const TagForm = styled.form`
   border: solid 1px lightgray;
 `;
@@ -119,15 +133,17 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
           {isError && <p>{error}</p>}
           {userData &&
             allImages.map((image) => (
-              <Thumbnail
-                style={{
-                  border: selectedImage === image ? "2px solid red" : "",
-                }}
-                key={image.imgNr}
-                src={image.url}
-                alt="alt"
-                onClick={() => setSelectedImage(image)}
-              />
+              <ThumbnailContainer key={image.imgNr}>
+                <Thumbnail
+                  style={{
+                    border: selectedImage === image ? "2px solid red" : "",
+                  }}
+                  key={image.imgNr}
+                  src={image.url}
+                  alt="alt"
+                  onClick={() => setSelectedImage(image)}
+                />
+              </ThumbnailContainer>
             ))}
         </ImageSlide>
         <TagForm onSubmit={handleSubmit}>
