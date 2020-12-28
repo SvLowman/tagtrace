@@ -16,14 +16,14 @@ const Image = styled.img`
 `;
 
 const NextImageButton = styled.button`
-  border: solid 1px blue;
+  border: solid 1px lightgray;
   position: absolute;
   align-self: flex-end;
   right: 0;
 `;
 
 const PreviousImageButton = styled.button`
-  border: solid 1px blue;
+  border: solid 1px lightgray;
   position: absolute;
   align-self: flex-end;
   left: 0;
@@ -64,9 +64,9 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
     <>
       {allImages && (
         <div>
-          <section>
+          {/* <section>
             <h2>Das hier ist die Album-Seite 🤩</h2>
-          </section>
+          </section> */}
           <ImageContainer>
             <PreviousImageButton
               label="◀"

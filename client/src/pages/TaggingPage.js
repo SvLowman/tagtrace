@@ -18,17 +18,16 @@ const Image = styled.img`
 `;
 
 const ImageDeleteButton = styled.button`
-  border: solid 1px red;
+  border: solid 1px lightgray;
   position: absolute;
-  align-self: flex-end;
+  align-self: flex-start;
   right: 0;
 `;
 
 const ImageSlide = styled.div`
   border: solid 1px lightgray;
   display: flex;
-  justify-content: center;
-  flex-direction: row-reverse;
+  /* flex-direction: row-reverse; */
   flex-wrap: nowrap;
   overflow-x: scroll;
   gap: 0.5rem;
@@ -38,7 +37,7 @@ const ThumbnailContainer = styled.div`
   width: 4rem;
   height: 4rem;
   min-width: 4rem;
-  border: solid 1px blue;
+  border: solid 1px lightgray;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,9 +118,9 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
   return (
     <>
       <div>
-        <section>
+        {/* <section>
           <h2>Das hier ist die Tagging-Seite 🤔</h2>
-        </section>
+        </section> */}
         <ImageContainer>
           {selectedImage && <Image src={selectedImage.url} alt="" />}
           <ImageDeleteButton label="❌" onClick={handleImageDelete}>
@@ -132,19 +131,22 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
           {isLoading && <p>Loading...</p>}
           {isError && <p>{error}</p>}
           {userData &&
-            allImages.map((image) => (
-              <ThumbnailContainer key={image.imgNr}>
-                <Thumbnail
-                  style={{
-                    border: selectedImage === image ? "2px solid red" : "",
-                  }}
-                  key={image.imgNr}
-                  src={image.url}
-                  alt="alt"
-                  onClick={() => setSelectedImage(image)}
-                />
-              </ThumbnailContainer>
-            ))}
+            allImages
+              .slice(0)
+              .reverse()
+              .map((image) => (
+                <ThumbnailContainer key={image.imgNr}>
+                  <Thumbnail
+                    style={{
+                      border: selectedImage === image ? "2px solid red" : "",
+                    }}
+                    key={image.imgNr}
+                    src={image.url}
+                    alt="alt"
+                    onClick={() => setSelectedImage(image)}
+                  />
+                </ThumbnailContainer>
+              ))}
         </ImageSlide>
         <TagForm onSubmit={handleSubmit}>
           <input
