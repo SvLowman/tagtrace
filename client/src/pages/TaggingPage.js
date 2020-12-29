@@ -26,7 +26,6 @@ const ImageDeleteButton = styled.button`
 const ImageSlide = styled.div`
   border: solid 1px lightgray;
   display: flex;
-  /* flex-direction: row-reverse; */
   flex-wrap: nowrap;
   overflow-x: scroll;
   gap: 0.5rem;
@@ -117,9 +116,6 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
   return (
     <>
       <div>
-        {/* <section>
-          <h2>Das hier ist die Tagging-Seite 🤔</h2>
-        </section> */}
         <ImageContainer>
           {selectedImage && <Image src={selectedImage.url} alt="" />}
           <ImageDeleteButton label="❌" onClick={handleImageDelete}>

@@ -1,11 +1,7 @@
 import styled from "styled-components/macro";
 
-export const ImageDisplay = styled.div`
-  /* border: solid 1px orange;
+export const ImageDisplay = styled.div``;
 
-  max-width: 100%;
-  max-height: 100%; */
-`;
 export const ImageContainer = styled.div`
   width: 100%;
   height: 100vw;

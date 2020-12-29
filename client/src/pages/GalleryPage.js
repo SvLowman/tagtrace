@@ -64,9 +64,6 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
     <>
       {allImages && (
         <div>
-          {/* <section>
-            <h2>Das hier ist die Album-Seite 🤩</h2>
-          </section> */}
           <ImageContainer>
             <PreviousImageButton
               label="◀"
@@ -89,7 +86,6 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
             </NextImageButton>
           </ImageContainer>
           <TagDisplay>
-            {/* <p>Tag-Display</p> */}
             {selectedImage &&
               selectedImage.tags.map((tag) => (
                 <Button
