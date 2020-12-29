@@ -89,7 +89,7 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
             </NextImageButton>
           </ImageContainer>
           <TagDisplay>
-            <p>Tag-Display</p>
+            {/* <p>Tag-Display</p> */}
             {selectedImage &&
               selectedImage.tags.map((tag) => (
                 <Button

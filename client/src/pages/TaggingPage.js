@@ -16,7 +16,6 @@ const Image = styled.img`
   max-width: 100%;
   position: relative;
 `;
-
 const ImageDeleteButton = styled.button`
   border: solid 1px lightgray;
   position: absolute;
@@ -75,10 +74,10 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
   const [tagName, setTagName] = useState("");
 
   useEffect(() => {
-    if (userData) {
+    if (userData && selectedImage === null) {
       setSelectedImage(allImages[allImages.length - 1]);
     }
-  }, [userData, allImages, setSelectedImage]);
+  }, [userData, allImages, selectedImage, setSelectedImage]);
 
   const [imgNr, setImgNr] = useState("");
   const [tagArray, setTagArray] = useState([]);

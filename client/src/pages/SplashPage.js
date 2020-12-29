@@ -8,7 +8,7 @@ const LogoContainer = styled.div`
 const SplashPage = () => (
   <LogoContainer>
     <section>
-      <h2>Das hier ist die Splash-Page 😛</h2>
+      <h2>Trace your Tags! 😛</h2>
     </section>
   </LogoContainer>
 );

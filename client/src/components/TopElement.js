@@ -8,7 +8,7 @@ const TopElementContainer = styled.div`
 const TopElement = () => (
   <TopElementContainer>
     <section>
-      <h4>Trace your Tags</h4>
+      <p>TagTrace</p>
     </section>
   </TopElementContainer>
 );
