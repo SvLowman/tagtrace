@@ -1,10 +1,11 @@
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import PageContainer from "./components/PageContainer";
 import TopElement from "./components/TopElement";
+import SplashPage from "./pages/SplashPage";
 import UploadPage from "./pages/UploadPage";
 import TaggingPage from "./pages/TaggingPage";
 import GalleryPage from "./pages/GalleryPage";
@@ -14,15 +15,21 @@ const queryClient = new QueryClient();
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [page, setPage] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setPage(false), 4000);
+  }, []);
+
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
         <Router>
           <PageContainer>
-            <TopElement />
+            {!page && <TopElement />}
             <Switch>
               <Route exact path="/">
-                <UploadPage />
+                {page ? <SplashPage /> : <UploadPage />}
               </Route>
               <Route path="/tagging">
                 <TaggingPage
@@ -37,7 +44,7 @@ function App() {
                 />
               </Route>
             </Switch>
-            <BottomNav />
+            {!page && <BottomNav />}
           </PageContainer>
         </Router>
         <ReactQueryDevtools initialIsOpen={false} />

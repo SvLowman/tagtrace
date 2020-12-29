@@ -2,20 +2,49 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import { Button } from "../components/Button";
-import { getImageObject, addNewTag, deleteImageObj, deleteTagItem } from "../utils/api";
-import { ImageDisplay, ImageContainer } from "../components/Display";
+import {
+  getImageObj,
+  addNewTag,
+  deleteImageObj,
+  deleteTagItem,
+} from "../utils/api";
+import { ImageContainer } from "../components/Display";
 import { useQuery } from "react-query";
+
+const Image = styled.img`
+  max-height: 100%;
+  max-width: 100%;
+  position: relative;
+`;
+const ImageDeleteButton = styled.button`
+  border: solid 1px lightgray;
+  position: absolute;
+  align-self: flex-start;
+  right: 0;
+`;
 
 const ImageSlide = styled.div`
   border: solid 1px lightgray;
   display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  gap: 0.5rem;
+  padding: 1rem;
+`;
+const ThumbnailContainer = styled.div`
+  width: 4rem;
+  height: 4rem;
+  min-width: 4rem;
+  border: solid 1px lightgray;
+  display: flex;
   justify-content: center;
-  flex-direction: row-reverse;
+  align-items: center;
 `;
 const Thumbnail = styled.img`
-  width: 10vw;
-  margin: 0 0.5rem;
+  max-width: 100%;
+  max-height: 100%;
 `;
+
 const TagForm = styled.form`
   border: solid 1px lightgray;
 `;
@@ -44,10 +73,10 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
   const [tagName, setTagName] = useState("");
 
   useEffect(() => {
-    if (userData) {
+    if (userData && selectedImage === null) {
       setSelectedImage(allImages[allImages.length - 1]);
     }
-  }, [userData, allImages, setSelectedImage]);
+  }, [userData, allImages, selectedImage, setSelectedImage]);
 
   const [imgNr, setImgNr] = useState("");
   const [tagArray, setTagArray] = useState([]);
@@ -87,30 +116,32 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
   return (
     <>
       <div>
-        <section>
-          <h2>Das hier ist die Tagging-Seite 🤔</h2>
-        </section>
-        <ImageDisplay>
-          <ImageContainer>
-            {selectedImage && <img src={selectedImage.url} alt="" />}
-            <Button label="❌" onClick={handleImageDelete}></Button>
-          </ImageContainer>
-        </ImageDisplay>
+        <ImageContainer>
+          {selectedImage && <Image src={selectedImage.url} alt="" />}
+          <ImageDeleteButton label="❌" onClick={handleImageDelete}>
+            ❌
+          </ImageDeleteButton>
+        </ImageContainer>
         <ImageSlide>
           {isLoading && <p>Loading...</p>}
           {isError && <p>{error}</p>}
           {userData &&
-            allImages.map((image) => (
-              <Thumbnail
-                style={{
-                  border: selectedImage === image ? "2px solid red" : "",
-                }}
-                key={image.imgNr}
-                src={image.url}
-                alt="alt"
-                onClick={() => setSelectedImage(image)}
-              />
-            ))}
+            allImages
+              .slice(0)
+              .reverse()
+              .map((image) => (
+                <ThumbnailContainer key={image.imgNr}>
+                  <Thumbnail
+                    style={{
+                      border: selectedImage === image ? "2px solid red" : "",
+                    }}
+                    key={image.imgNr}
+                    src={image.url}
+                    alt="alt"
+                    onClick={() => setSelectedImage(image)}
+                  />
+                </ThumbnailContainer>
+              ))}
         </ImageSlide>
         <TagForm onSubmit={handleSubmit}>
           <input

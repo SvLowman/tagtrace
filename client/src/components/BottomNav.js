@@ -9,16 +9,15 @@ const NavContainer = styled.nav`
 
 const BottomNavContainer = () => (
   <NavContainer>
-    <h2>- BottomNav -</h2>
     <div>
       <Link to="/">
-        <Button label="➕" />
-      </Link>
-      <Link to="/gallery">
-        <Button label="👁" />
+        <Button label="➕ Hinzufügen" />
       </Link>
       <Link to="/tagging">
-        <Button label="🏷" />
+        <Button label="🖍 Bearbeiten" />
+      </Link>
+      <Link to="/gallery">
+        <Button label="👁 Ankucken" />
       </Link>
     </div>
   </NavContainer>

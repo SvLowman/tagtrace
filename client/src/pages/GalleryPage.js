@@ -2,12 +2,31 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import { Button } from "../components/Button";
-import { ImageDisplay, ImageContainer } from "../components/Display";
+import { ImageContainer } from "../components/Display";
 import { getImageObj } from "../utils/api";
 import { useQuery } from "react-query";
 
 const TagDisplay = styled.div`
   border: solid 1px lightgray;
+`;
+
+const Image = styled.img`
+  max-height: 100%;
+  max-width: 100%;
+`;
+
+const NextImageButton = styled.button`
+  border: solid 1px lightgray;
+  position: absolute;
+  align-self: flex-end;
+  right: 0;
+`;
+
+const PreviousImageButton = styled.button`
+  border: solid 1px lightgray;
+  position: absolute;
+  align-self: flex-end;
+  left: 0;
 `;
 
 const GalleryPage = ({ selectedImage, setSelectedImage }) => {
@@ -45,30 +64,28 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
     <>
       {allImages && (
         <div>
-          <section>
-            <h2>Das hier ist die Album-Seite 🤩</h2>
-          </section>
-          <ImageDisplay>
-            <ImageContainer>
-              <Button
-                label="◀"
-                type="submit"
-                onClick={loadPreviousImage}
-                disabled={!previousImage}
-              />
-              {isLoading && <p>Loading...</p>}
-              {isError && <p>{error}</p>}
-              {selectedImage && <img src={selectedImage.url} alt="" />}
-              <Button
-                label="▶"
-                type="submit"
-                onClick={loadNextImage}
-                disabled={!nextImage}
-              />
-            </ImageContainer>
-          </ImageDisplay>
+          <ImageContainer>
+            <PreviousImageButton
+              label="◀"
+              type="submit"
+              onClick={loadPreviousImage}
+              disabled={!previousImage}
+            >
+              ◀
+            </PreviousImageButton>
+            {isLoading && <p>Loading...</p>}
+            {isError && <p>{error}</p>}
+            {selectedImage && <Image src={selectedImage.url} alt="" />}
+            <NextImageButton
+              label="▶"
+              type="submit"
+              onClick={loadNextImage}
+              disabled={!nextImage}
+            >
+              ▶
+            </NextImageButton>
+          </ImageContainer>
           <TagDisplay>
-            <p>Tag-Display</p>
             {selectedImage &&
               selectedImage.tags.map((tag) => (
                 <Button
