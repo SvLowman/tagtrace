@@ -5,6 +5,8 @@ import styled from "styled-components/macro";
 
 const NavContainer = styled.nav`
   border-top: solid 1px black;
+  position: fixed;
+  bottom: 0;
 `;
 
 const BottomNavContainer = () => (
