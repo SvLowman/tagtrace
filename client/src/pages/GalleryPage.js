@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
-import { Button } from "../components/Button";
+// import { Button } from "../components/Button";
 import { ImageContainer } from "../components/Display";
 import { getImageObj } from "../utils/api";
 import { useQuery } from "react-query";
@@ -27,6 +27,10 @@ const PreviousImageButton = styled.button`
   position: absolute;
   align-self: flex-end;
   left: 0;
+`;
+
+const TagButton = styled.button`
+  border: solid 1px lightgray;
 `;
 
 const GalleryPage = ({ selectedImage, setSelectedImage }) => {
@@ -88,13 +92,15 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
           <TagDisplay>
             {selectedImage &&
               selectedImage.tags.map((tag) => (
-                <Button
+                <TagButton
                   key={tag}
                   label={tag}
                   onClick={() => {
                     setSelectedTag(tag);
                   }}
-                />
+                >
+                  {tag}
+                </TagButton>
               ))}
           </TagDisplay>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
-import { Button } from "../components/Button";
+// import { Button } from "../components/Button";
 import {
   getImageObj,
   addNewTag,
@@ -45,10 +45,17 @@ const Thumbnail = styled.img`
   max-height: 100%;
 `;
 
+const TagSubmitButton = styled.button`
+  border: solid 1px lightgray;
+`;
+
 const TagForm = styled.form`
   border: solid 1px lightgray;
 `;
 const TagNotifier = styled.div`
+  border: solid 1px lightgray;
+`;
+const TagDeleteButton = styled.button`
   border: solid 1px lightgray;
 `;
 
@@ -151,7 +158,9 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
             value={tagName}
             onChange={handleTagNameChange}
           ></input>
-          <Button label="Darf ich button?" type="submit" />
+          <TagSubmitButton label="Darf ich button?" type="submit">
+            Darf ich button?
+          </TagSubmitButton>
         </TagForm>
         <TagNotifier>
           {selectedImage && <p>Diese Tags hat das Bild schon:</p>}
@@ -159,7 +168,12 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
             tagArray.map((tag, index) => (
               <div key={index}>
                 {tag}
-                <Button label="❌" onClick={() => handleTagDelete(tag)} />
+                <TagDeleteButton
+                  label="❌"
+                  onClick={() => handleTagDelete(tag)}
+                >
+                  ❌
+                </TagDeleteButton>
               </div>
             ))}
         </TagNotifier>

@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { Button } from "../components/Button";
+// import { Button } from "../components/Button";
+import styled from "styled-components/macro";
 import UploadPreview from "../components/UploadPreview";
 import { useHistory } from "react-router-dom";
+
+const UploadButton = styled.button`
+  border: solid 1px lightgray;
+`;
 
 export default function UploadImage() {
   const [uploadInput, setUploadInput] = useState("");
@@ -50,7 +55,9 @@ export default function UploadImage() {
     <form onSubmit={handleSubmit}>
       <input type="file" value={uploadInput} onChange={handleImageChange} />
       {previewSrc && <UploadPreview src={previewSrc} alt="" />}
-      <Button type="submit" label="Bild hochladen" />
+      <UploadButton type="submit" label="Bild hochladen">
+        Bild hochladen
+      </UploadButton>
     </form>
   );
 }
