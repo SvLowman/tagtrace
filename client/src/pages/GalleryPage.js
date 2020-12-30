@@ -6,9 +6,7 @@ import { ImageContainer } from "../components/Display";
 import { getImageObj } from "../utils/api";
 import { useQuery } from "react-query";
 
-const TagDisplay = styled.div`
-  border: solid 1px lightgray;
-`;
+const TagDisplay = styled.div``;
 
 const Image = styled.img`
   max-height: 100%;
@@ -31,6 +29,8 @@ const PreviousImageButton = styled.button`
 
 const TagButton = styled.button`
   border: solid 1px lightgray;
+  font-family: var(--tagfont);
+  font-size: 1.2rem;
 `;
 
 const GalleryPage = ({ selectedImage, setSelectedImage }) => {

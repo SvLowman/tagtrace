@@ -8,6 +8,7 @@ const NavButton = styled.button`
 `;
 
 const NavContainer = styled.nav`
+  background: var(--header);
   border-top: solid 1px black;
   position: fixed;
   bottom: 0;

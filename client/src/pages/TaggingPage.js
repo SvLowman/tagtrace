@@ -24,7 +24,6 @@ const ImageDeleteButton = styled.button`
 `;
 
 const ImageSlide = styled.div`
-  border: solid 1px lightgray;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
@@ -32,10 +31,10 @@ const ImageSlide = styled.div`
   padding: 1rem;
 `;
 const ThumbnailContainer = styled.div`
+  background: var(--image-container);
   width: 4rem;
   height: 4rem;
   min-width: 4rem;
-  border: solid 1px lightgray;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,12 +47,22 @@ const Thumbnail = styled.img`
 const TagSubmitButton = styled.button`
   border: solid 1px lightgray;
 `;
+const TagForm = styled.form``;
 
-const TagForm = styled.form`
-  border: solid 1px lightgray;
+const TagNotifier = styled.div``;
+const TagElement = styled.div`
+  border: solid 1px teal;
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
 `;
-const TagNotifier = styled.div`
-  border: solid 1px lightgray;
+const TagCard = styled.div`
+  border: solid 1px red;
+  font-family: var(--tagfont);
+  font-size: 1.2rem;
+  width: fit-content;
+  display: flex;
+  align-items: center;
 `;
 const TagDeleteButton = styled.button`
   border: solid 1px lightgray;
@@ -123,12 +132,6 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
   return (
     <>
       <div>
-        <ImageContainer>
-          {selectedImage && <Image src={selectedImage.url} alt="" />}
-          <ImageDeleteButton label="❌" onClick={handleImageDelete}>
-            ❌
-          </ImageDeleteButton>
-        </ImageContainer>
         <ImageSlide>
           {isLoading && <p>Loading...</p>}
           {isError && <p>{error}</p>}
@@ -140,7 +143,10 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
                 <ThumbnailContainer key={image.imgNr}>
                   <Thumbnail
                     style={{
-                      border: selectedImage === image ? "2px solid red" : "",
+                      border:
+                        selectedImage === image
+                          ? "2px solid var(--active)"
+                          : "",
                     }}
                     key={image.imgNr}
                     src={image.url}
@@ -150,6 +156,12 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
                 </ThumbnailContainer>
               ))}
         </ImageSlide>
+        <ImageContainer>
+          {selectedImage && <Image src={selectedImage.url} alt="" />}
+          <ImageDeleteButton label="❌" onClick={handleImageDelete}>
+            ❌
+          </ImageDeleteButton>
+        </ImageContainer>
         <TagForm onSubmit={handleSubmit}>
           <input
             type="text"
@@ -166,15 +178,15 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
           {selectedImage && <p>Diese Tags hat das Bild schon:</p>}
           {selectedImage &&
             tagArray.map((tag, index) => (
-              <div key={index}>
-                {tag}
+              <TagElement key={index}>
+                <TagCard>{tag}</TagCard>
                 <TagDeleteButton
                   label="❌"
                   onClick={() => handleTagDelete(tag)}
                 >
                   ❌
                 </TagDeleteButton>
-              </div>
+              </TagElement>
             ))}
         </TagNotifier>
       </div>

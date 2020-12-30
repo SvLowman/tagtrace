@@ -5,7 +5,7 @@ import styled from "styled-components/macro";
 const Display = styled.div`
   height: 50vw;
   width: 50vw;
-  border: solid 1px lightgray;
+  background: var(--image-container);
   margin: 0 auto;
   display: flex;
   align-items: center;
