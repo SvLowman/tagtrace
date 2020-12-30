@@ -5,7 +5,8 @@ import UploadPreview from "../components/UploadPreview";
 import { useHistory } from "react-router-dom";
 
 const UploadButton = styled.button`
-  border: solid 1px lightgray;
+  border: solid 1px var(--light);
+  background: linear-gradient(160deg, var(--active), var(--active-gradient));
 `;
 
 export default function UploadImage() {
@@ -55,9 +56,13 @@ export default function UploadImage() {
     <form onSubmit={handleSubmit}>
       <input type="file" value={uploadInput} onChange={handleImageChange} />
       {previewSrc && <UploadPreview src={previewSrc} alt="" />}
-      <UploadButton type="submit" label="Bild hochladen">
-        Bild hochladen
-      </UploadButton>
+      <div>
+        {previewSrc && (
+          <UploadButton type="submit" label="Bild hochladen">
+            Bild hochladen
+          </UploadButton>
+        )}
+      </div>
     </form>
   );
 }

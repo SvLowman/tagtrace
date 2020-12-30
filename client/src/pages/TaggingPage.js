@@ -17,7 +17,9 @@ const Image = styled.img`
   position: relative;
 `;
 const ImageDeleteButton = styled.button`
-  border: solid 1px lightgray;
+  border-radius: 50%;
+  padding: 0.5rem;
+  margin: 2% 2% 0 0;
   position: absolute;
   align-self: flex-start;
   right: 0;
@@ -44,28 +46,64 @@ const Thumbnail = styled.img`
   max-height: 100%;
 `;
 
-const TagSubmitButton = styled.button`
-  border: solid 1px lightgray;
+const TagForm = styled.form`
+  padding: 2rem 0;
 `;
-const TagForm = styled.form``;
+const TagInput = styled.input`
+  background: var(--light);
+  color: var(--header);
+  width: 55%;
+  border-bottom-left-radius: 1rem;
+  border-top-left-radius: 1rem;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-top: solid 1px var(--light);
+  border-bottom: none;
+  padding: 0.5rem 0.8rem;
+  font-family: var(--tagfont);
+  font-size: 1.1rem;
+`;
+const TagSubmitButton = styled.button`
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  background: linear-gradient(160deg, var(--active), var(--active-gradient));
+`;
 
-const TagNotifier = styled.div``;
+const TagNotifier = styled.div`
+  margin-bottom: 5rem;
+`;
+const TagElementContainer = styled.div`
+  padding: 0 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
 const TagElement = styled.div`
-  border: solid 1px teal;
   display: flex;
   width: fit-content;
-  margin: 0 auto;
+  margin: 0.5rem;
 `;
 const TagCard = styled.div`
-  border: solid 1px red;
+  border: solid 1px rgba(220, 228, 204, 0.3);
+  border-bottom-left-radius: 1.3rem;
+  border-top-left-radius: 1.3rem;
+  border-right: none;
   font-family: var(--tagfont);
-  font-size: 1.2rem;
+  font-size: 1rem;
+  padding: 0.5rem 0.7rem 0.5rem 0.8rem;
   width: fit-content;
   display: flex;
   align-items: center;
 `;
 const TagDeleteButton = styled.button`
-  border: solid 1px lightgray;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 1.3rem;
+  border-top-right-radius: 1.3rem;
+  border: solid 1px rgba(220, 228, 204, 0.3);
+  border-left: none;
+  background: var(--header);
+  padding: 0.5rem 0.7rem 0.5rem 0.5rem;
 `;
 
 const TaggingPage = ({ selectedImage, setSelectedImage }) => {
@@ -163,31 +201,33 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
           </ImageDeleteButton>
         </ImageContainer>
         <TagForm onSubmit={handleSubmit}>
-          <input
+          <TagInput
             type="text"
             placeholder="Tag setzen"
             required="required"
             value={tagName}
             onChange={handleTagNameChange}
-          ></input>
+          ></TagInput>
           <TagSubmitButton label="Darf ich button?" type="submit">
             Darf ich button?
           </TagSubmitButton>
         </TagForm>
         <TagNotifier>
           {selectedImage && <p>Diese Tags hat das Bild schon:</p>}
-          {selectedImage &&
-            tagArray.map((tag, index) => (
-              <TagElement key={index}>
-                <TagCard>{tag}</TagCard>
-                <TagDeleteButton
-                  label="❌"
-                  onClick={() => handleTagDelete(tag)}
-                >
-                  ❌
-                </TagDeleteButton>
-              </TagElement>
-            ))}
+          <TagElementContainer>
+            {selectedImage &&
+              tagArray.map((tag, index) => (
+                <TagElement key={index}>
+                  <TagCard>{tag}</TagCard>
+                  <TagDeleteButton
+                    label="❌"
+                    onClick={() => handleTagDelete(tag)}
+                  >
+                    ❌
+                  </TagDeleteButton>
+                </TagElement>
+              ))}
+          </TagElementContainer>
         </TagNotifier>
       </div>
     </>

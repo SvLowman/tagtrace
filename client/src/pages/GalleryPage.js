@@ -14,23 +14,29 @@ const Image = styled.img`
 `;
 
 const NextImageButton = styled.button`
-  border: solid 1px lightgray;
+  border-radius: 50%;
+  padding: 0.5rem 0.8rem;
+  margin: 0 2% 2% 0;
   position: absolute;
   align-self: flex-end;
   right: 0;
 `;
 
 const PreviousImageButton = styled.button`
-  border: solid 1px lightgray;
+  border-radius: 50%;
+  padding: 0.5rem 0.8rem;
+  margin: 0 0 2% 2%;
   position: absolute;
   align-self: flex-end;
   left: 0;
 `;
 
 const TagButton = styled.button`
-  border: solid 1px lightgray;
+  border: solid 1px rgba(220, 228, 204, 0.5);
+  border-radius: 0;
   font-family: var(--tagfont);
   font-size: 1.2rem;
+  margin: 0.2rem;
 `;
 
 const GalleryPage = ({ selectedImage, setSelectedImage }) => {

@@ -11,7 +11,8 @@ const GlobalStyle = createGlobalStyle`
     --background: #161528;
     --image-container: #201f29;
     --light: #dce4cc;
-    --active: #65c542;
+    --active: #4caa59;
+    --active-gradient: #397f43;
     --tagfont: 'Josefin Sans', sans-serif;
     --textfont: 'Montserrat', sans-serif;
 }
@@ -25,7 +26,12 @@ body {
 }
 
 button {
-    color: rebeccapurple;
+    background: transparent;
+    color: var(--light);
+    font-family: var(--textfont);
+    padding: 0.5rem 0.8rem;
+    border: solid 1px var(--light);
+    border-radius: 1rem;
 }
 `;
 

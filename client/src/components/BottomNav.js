@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 
 const NavButton = styled.button`
-  border: solid 1px lightgray;
+  border: none;
+  height: 3rem;
 `;
 
 const NavContainer = styled.nav`
@@ -12,7 +13,10 @@ const NavContainer = styled.nav`
   border-top: solid 1px black;
   position: fixed;
   bottom: 0;
-  width: 100vw;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 `;
 
 const BottomNavContainer = () => (
