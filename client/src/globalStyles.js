@@ -32,6 +32,7 @@ button {
     padding: 0.5rem 0.8rem;
     border: solid 1px var(--light);
     border-radius: 1rem;
+    cursor: pointer;
 }
 `;
 

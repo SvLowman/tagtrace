@@ -6,15 +6,19 @@ import { ImageContainer } from "../components/Display";
 import { getImageObj } from "../utils/api";
 import { useQuery } from "react-query";
 
-const TagDisplay = styled.div``;
-
 const Image = styled.img`
   max-height: 100%;
   max-width: 100%;
 `;
 
 const NextImageButton = styled.button`
+  color: ${(props) =>
+    props.disabled ? "rgba(220, 228, 204, 0.3)" : "var(--light)"};
   border-radius: 50%;
+  border: ${(props) =>
+    props.disabled
+      ? "solid 1px rgba(220, 228, 204, 0.3)"
+      : "solid 1px rgba(220, 228, 204, 0.6)"};
   padding: 0.5rem 0.8rem;
   margin: 0 2% 2% 0;
   position: absolute;
@@ -23,7 +27,13 @@ const NextImageButton = styled.button`
 `;
 
 const PreviousImageButton = styled.button`
+  color: ${(props) =>
+    props.disabled ? "rgba(220, 228, 204, 0.3)" : "var(--light)"};
   border-radius: 50%;
+  border: ${(props) =>
+    props.disabled
+      ? "solid 1px rgba(220, 228, 204, 0.3)"
+      : "solid 1px rgba(220, 228, 204, 0.5)"};
   padding: 0.5rem 0.8rem;
   margin: 0 0 2% 2%;
   position: absolute;
@@ -31,12 +41,17 @@ const PreviousImageButton = styled.button`
   left: 0;
 `;
 
+const TagDisplay = styled.div`
+  margin: 2% 2% 5rem;
+`;
+
 const TagButton = styled.button`
   border: solid 1px rgba(220, 228, 204, 0.5);
   border-radius: 0;
   font-family: var(--tagfont);
   font-size: 1.2rem;
-  margin: 0.2rem;
+  padding: 0.8rem 1rem 0.6rem 1rem;
+  margin: 0.1rem;
 `;
 
 const GalleryPage = ({ selectedImage, setSelectedImage }) => {

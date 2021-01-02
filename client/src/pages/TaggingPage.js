@@ -18,6 +18,7 @@ const Image = styled.img`
 `;
 const ImageDeleteButton = styled.button`
   border-radius: 50%;
+  border: solid 1px rgba(220, 228, 204, 0.3);
   padding: 0.5rem;
   margin: 2% 2% 0 0;
   position: absolute;
@@ -44,6 +45,7 @@ const ThumbnailContainer = styled.div`
 const Thumbnail = styled.img`
   max-width: 100%;
   max-height: 100%;
+  cursor: pointer;
 `;
 
 const TagForm = styled.form`

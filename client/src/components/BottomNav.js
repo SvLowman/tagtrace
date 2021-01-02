@@ -6,7 +6,6 @@ import styled from "styled-components/macro";
 const NavButton = styled.button`
   border: none;
   color: ${(props) => (props.active ? "var(--active)" : "var(--light)")};
-  height: 3rem;
 `;
 
 const NavContainer = styled.nav`
@@ -15,8 +14,9 @@ const NavContainer = styled.nav`
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: 3.2rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 `;
 
@@ -25,23 +25,19 @@ const BottomNavContainer = () => {
 
   return (
     <NavContainer>
-      <div>
-        <Link to="/">
-          <NavButton active={location.pathname === "/"}>
-            ➕ Hinzufügen
-          </NavButton>
-        </Link>
-        <Link to="/tagging">
-          <NavButton active={location.pathname === "/tagging"}>
-            🖍 Bearbeiten
-          </NavButton>
-        </Link>
-        <Link to="/gallery">
-          <NavButton active={location.pathname === "/gallery"}>
-            👁 Ankucken
-          </NavButton>
-        </Link>
-      </div>
+      <Link to="/">
+        <NavButton active={location.pathname === "/"}>➕ Hinzufügen</NavButton>
+      </Link>
+      <Link to="/tagging">
+        <NavButton active={location.pathname === "/tagging"}>
+          🖍 Bearbeiten
+        </NavButton>
+      </Link>
+      <Link to="/gallery">
+        <NavButton active={location.pathname === "/gallery"}>
+          👁 Ankucken
+        </NavButton>
+      </Link>
     </NavContainer>
   );
 };
