@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
-// import { Button } from "../components/Button";
 import { ImageContainer } from "../components/Display";
 import { getImageObj } from "../utils/api";
 import { useQuery } from "react-query";
@@ -91,7 +90,6 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
         <div>
           <ImageContainer>
             <PreviousImageButton
-              label="◀"
               type="submit"
               onClick={loadPreviousImage}
               disabled={!previousImage}
@@ -102,7 +100,6 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
             {isError && <p>{error}</p>}
             {selectedImage && <Image src={selectedImage.url} alt="" />}
             <NextImageButton
-              label="▶"
               type="submit"
               onClick={loadNextImage}
               disabled={!nextImage}
@@ -115,7 +112,6 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
               selectedImage.tags.map((tag) => (
                 <TagButton
                   key={tag}
-                  label={tag}
                   onClick={() => {
                     if (!selectedTag || selectedTag !== tag) {
                       setSelectedTag(tag);

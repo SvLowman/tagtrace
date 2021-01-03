@@ -18,11 +18,11 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-    margin: 0;
     background: var(--background);
+    color: var(--light);
     text-align: center;
     font-family: 'Montserrat', sans-serif;
-    color: var(--light);
+    margin: 0;
     ::-webkit-scrollbar {
     width: 0 !important;
     background-color: transparent;
@@ -33,9 +33,9 @@ button {
     background: transparent;
     color: var(--light);
     font-family: var(--textfont);
-    padding: 0.5rem 0.8rem;
     border: solid 1px var(--light);
     border-radius: 1rem;
+    padding: 0.5rem 0.8rem;
     cursor: pointer;
 }
 `;

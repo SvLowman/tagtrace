@@ -1,5 +1,4 @@
 import React from "react";
-// import { Button } from "./Button";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components/macro";
 
@@ -26,7 +25,7 @@ const BottomNavContainer = () => {
   return (
     <NavContainer>
       <Link to="/">
-        <NavButton active={location.pathname === "/"}>➕ Hinzufügen</NavButton>
+        <NavButton active={location.pathname === "/"}>+ Hinzufügen</NavButton>
       </Link>
       <Link to="/tagging">
         <NavButton active={location.pathname === "/tagging"}>

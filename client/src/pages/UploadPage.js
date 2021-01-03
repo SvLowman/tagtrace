@@ -4,6 +4,7 @@ import UploadImage from "../utils/UploadImage";
 
 const UploadPageContainer = styled.div`
   height: 80vh;
+  margin: 0 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,7 +13,7 @@ const UploadPageContainer = styled.div`
 const UploadPage = () => (
   <UploadPageContainer>
     <section>
-      <h2>Das hier ist die Upload-Seite 🤗</h2>
+      <h2>Füge deiner Sammlung ein Bild hinzu 🤗</h2>
     </section>
     <div>
       <UploadImage />

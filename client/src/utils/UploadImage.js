@@ -1,28 +1,27 @@
 import React, { useState } from "react";
-// import { Button } from "../components/Button";
 import styled from "styled-components/macro";
 import UploadPreview from "../components/UploadPreview";
 import { useHistory } from "react-router-dom";
 
 const UploadButtonContainer = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
 `;
 const ButtonWrapper = styled.div`
+  width: fit-content;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: fit-content;
 `;
 const ImageInput = styled.input`
+  font-size: 1.5rem;
+  border-radius: 50%;
+  width: 100%;
   position: absolute;
   z-index: 1;
-  font-size: 1.5rem;
-  width: 100%;
-  border-radius: 50%;
 `;
 const InputButton = styled.button`
   color: var(--light);
@@ -33,7 +32,6 @@ const InputButton = styled.button`
 `;
 
 const UploadButton = styled.button`
-  border: solid 1px var(--light);
   background: linear-gradient(160deg, var(--active), var(--active-gradient));
 `;
 
@@ -104,9 +102,7 @@ export default function UploadImage() {
       {previewSrc && <UploadPreview src={previewSrc} alt="" />}
       <div>
         {previewSrc && (
-          <UploadButton type="submit" label="Bild hochladen">
-            Bild hochladen
-          </UploadButton>
+          <UploadButton type="submit">Bild hochladen</UploadButton>
         )}
       </div>
     </form>

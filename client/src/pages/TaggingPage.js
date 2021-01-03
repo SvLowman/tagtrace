@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
-// import { Button } from "../components/Button";
 import {
   getImageObj,
   addNewTag,
@@ -27,11 +26,11 @@ const ImageDeleteButton = styled.button`
 `;
 
 const ImageSlide = styled.div`
+  padding: 1rem;
+  gap: 0.5rem;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
-  gap: 0.5rem;
-  padding: 1rem;
 `;
 const ThumbnailContainer = styled.div`
   background: var(--image-container);
@@ -49,7 +48,7 @@ const Thumbnail = styled.img`
 `;
 
 const TagForm = styled.form`
-  padding: 2rem 0;
+  padding: 3.2rem 0 2rem;
 `;
 const TagInput = styled.input`
   background: var(--light);
@@ -190,7 +189,7 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
                     }}
                     key={image.imgNr}
                     src={image.url}
-                    alt="alt"
+                    alt=""
                     onClick={() => setSelectedImage(image)}
                   />
                 </ThumbnailContainer>
@@ -198,9 +197,7 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
         </ImageSlide>
         <ImageContainer>
           {selectedImage && <Image src={selectedImage.url} alt="" />}
-          <ImageDeleteButton label="❌" onClick={handleImageDelete}>
-            ❌
-          </ImageDeleteButton>
+          <ImageDeleteButton onClick={handleImageDelete}>❌</ImageDeleteButton>
         </ImageContainer>
         <TagForm onSubmit={handleSubmit}>
           <TagInput
@@ -210,21 +207,16 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
             value={tagName}
             onChange={handleTagNameChange}
           ></TagInput>
-          <TagSubmitButton label="Darf ich button?" type="submit">
-            Darf ich button?
-          </TagSubmitButton>
+          <TagSubmitButton type="submit">Darf ich button?</TagSubmitButton>
         </TagForm>
         <TagNotifier>
-          {selectedImage && <p>Diese Tags hat das Bild schon:</p>}
+          {tagArray[0] && <p>Diese Tags hat das Bild schon:</p>}
           <TagElementContainer>
             {selectedImage &&
               tagArray.map((tag, index) => (
                 <TagElement key={index}>
                   <TagCard>{tag}</TagCard>
-                  <TagDeleteButton
-                    label="❌"
-                    onClick={() => handleTagDelete(tag)}
-                  >
+                  <TagDeleteButton onClick={() => handleTagDelete(tag)}>
                     ❌
                   </TagDeleteButton>
                 </TagElement>
