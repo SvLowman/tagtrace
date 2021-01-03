@@ -6,11 +6,10 @@ const Display = styled.div`
   height: 50vw;
   width: 50vw;
   background: var(--image-container);
-  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 1rem auto 2rem;
+  margin: 2rem auto 2rem;
 `;
 const PreviewImage = styled.img`
   max-height: 100%;

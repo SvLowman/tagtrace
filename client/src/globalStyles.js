@@ -23,6 +23,10 @@ body {
     text-align: center;
     font-family: 'Montserrat', sans-serif;
     color: var(--light);
+    ::-webkit-scrollbar {
+    width: 0 !important;
+    background-color: transparent;
+  }
 }
 
 button {

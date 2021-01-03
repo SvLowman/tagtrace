@@ -117,7 +117,17 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
                   key={tag}
                   label={tag}
                   onClick={() => {
-                    setSelectedTag(tag);
+                    if (!selectedTag || selectedTag !== tag) {
+                      setSelectedTag(tag);
+                    } else {
+                      setSelectedTag("");
+                    }
+                  }}
+                  style={{
+                    background:
+                      selectedTag === tag
+                        ? "linear-gradient(160deg, var(--active), var(--active-gradient))"
+                        : "transparent",
                   }}
                 >
                   {tag}
