@@ -2,6 +2,11 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components/macro";
 
+const LogoDummy = styled.button`
+  border: none;
+  color: transparent;
+`;
+
 const NavButton = styled.button`
   border: none;
   color: ${(props) => (props.active ? "var(--active)" : "var(--light)")};
@@ -13,7 +18,7 @@ const NavContainer = styled.nav`
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 3.2rem;
+  height: 3.3rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -24,6 +29,7 @@ const BottomNavContainer = () => {
 
   return (
     <NavContainer>
+      <LogoDummy>123</LogoDummy>
       <Link to="/">
         <NavButton active={location.pathname === "/"}>+ Hinzufügen</NavButton>
       </Link>
