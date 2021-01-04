@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
-import { Button } from "../components/Button";
 import { ImageContainer } from "../components/Display";
 import { getImageObj } from "../utils/api";
 import { useQuery } from "react-query";
-
-const TagDisplay = styled.div`
-  border: solid 1px lightgray;
-`;
 
 const Image = styled.img`
   max-height: 100%;
@@ -16,17 +11,46 @@ const Image = styled.img`
 `;
 
 const NextImageButton = styled.button`
-  border: solid 1px lightgray;
+  color: ${(props) =>
+    props.disabled ? "rgba(220, 228, 204, 0.3)" : "var(--light)"};
+  border-radius: 50%;
+  border: ${(props) =>
+    props.disabled
+      ? "solid 1px rgba(220, 228, 204, 0.3)"
+      : "solid 1px rgba(220, 228, 204, 0.6)"};
+  padding: 0.5rem 0.8rem;
+  margin: 0 2% 2% 0;
   position: absolute;
   align-self: flex-end;
   right: 0;
 `;
 
 const PreviousImageButton = styled.button`
-  border: solid 1px lightgray;
+  color: ${(props) =>
+    props.disabled ? "rgba(220, 228, 204, 0.3)" : "var(--light)"};
+  border-radius: 50%;
+  border: ${(props) =>
+    props.disabled
+      ? "solid 1px rgba(220, 228, 204, 0.3)"
+      : "solid 1px rgba(220, 228, 204, 0.5)"};
+  padding: 0.5rem 0.8rem;
+  margin: 0 0 2% 2%;
   position: absolute;
   align-self: flex-end;
   left: 0;
+`;
+
+const TagDisplay = styled.div`
+  margin: 2% 2% 5rem;
+`;
+
+const TagButton = styled.button`
+  border: solid 1px rgba(220, 228, 204, 0.5);
+  border-radius: 0;
+  font-family: var(--tagfont);
+  font-size: 1.2rem;
+  padding: 0.8rem 1rem 0.6rem 1rem;
+  margin: 0.1rem;
 `;
 
 const GalleryPage = ({ selectedImage, setSelectedImage }) => {
@@ -66,7 +90,6 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
         <div>
           <ImageContainer>
             <PreviousImageButton
-              label="◀"
               type="submit"
               onClick={loadPreviousImage}
               disabled={!previousImage}
@@ -77,7 +100,6 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
             {isError && <p>{error}</p>}
             {selectedImage && <Image src={selectedImage.url} alt="" />}
             <NextImageButton
-              label="▶"
               type="submit"
               onClick={loadNextImage}
               disabled={!nextImage}
@@ -88,13 +110,24 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
           <TagDisplay>
             {selectedImage &&
               selectedImage.tags.map((tag) => (
-                <Button
+                <TagButton
                   key={tag}
-                  label={tag}
                   onClick={() => {
-                    setSelectedTag(tag);
+                    if (!selectedTag || selectedTag !== tag) {
+                      setSelectedTag(tag);
+                    } else {
+                      setSelectedTag("");
+                    }
                   }}
-                />
+                  style={{
+                    background:
+                      selectedTag === tag
+                        ? "linear-gradient(160deg, var(--active), var(--active-gradient))"
+                        : "transparent",
+                  }}
+                >
+                  {tag}
+                </TagButton>
               ))}
           </TagDisplay>
         </div>

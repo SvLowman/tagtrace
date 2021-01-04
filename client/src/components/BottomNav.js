@@ -1,26 +1,50 @@
 import React from "react";
-import { Button } from "./Button";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components/macro";
 
-const NavContainer = styled.nav`
-  border-top: solid 1px black;
+const LogoDummy = styled.button`
+  border: none;
+  color: transparent;
 `;
 
-const BottomNavContainer = () => (
-  <NavContainer>
-    <div>
+const NavButton = styled.button`
+  border: none;
+  color: ${(props) => (props.active ? "var(--active)" : "var(--light)")};
+`;
+
+const NavContainer = styled.nav`
+  background: var(--header);
+  border-top: solid 1px black;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 3.3rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+const BottomNavContainer = () => {
+  const location = useLocation();
+
+  return (
+    <NavContainer>
+      <LogoDummy>123</LogoDummy>
       <Link to="/">
-        <Button label="➕ Hinzufügen" />
+        <NavButton active={location.pathname === "/"}>+ Hinzufügen</NavButton>
       </Link>
       <Link to="/tagging">
-        <Button label="🖍 Bearbeiten" />
+        <NavButton active={location.pathname === "/tagging"}>
+          🖍 Bearbeiten
+        </NavButton>
       </Link>
       <Link to="/gallery">
-        <Button label="👁 Ankucken" />
+        <NavButton active={location.pathname === "/gallery"}>
+          👁 Ankucken
+        </NavButton>
       </Link>
-    </div>
-  </NavContainer>
-);
+    </NavContainer>
+  );
+};
 
 export default BottomNavContainer;

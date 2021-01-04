@@ -3,6 +3,9 @@ import styled from "styled-components/macro";
 
 const TopElementContainer = styled.div`
   border-bottom: solid 1px black;
+  border-top: solid 1px black;
+  font-family: var(--tagfont);
+  background: var(--header);
 `;
 
 const TopElement = () => (

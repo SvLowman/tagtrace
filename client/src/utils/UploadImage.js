@@ -1,7 +1,39 @@
 import React, { useState } from "react";
-import { Button } from "../components/Button";
+import styled from "styled-components/macro";
 import UploadPreview from "../components/UploadPreview";
 import { useHistory } from "react-router-dom";
+
+const UploadButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const ButtonWrapper = styled.div`
+  width: fit-content;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const ImageInput = styled.input`
+  font-size: 1.5rem;
+  border-radius: 50%;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+`;
+const InputButton = styled.button`
+  color: var(--light);
+  background: var(--active);
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+`;
+
+const UploadButton = styled.button`
+  background: linear-gradient(160deg, var(--active), var(--active-gradient));
+`;
 
 export default function UploadImage() {
   const [uploadInput, setUploadInput] = useState("");
@@ -48,9 +80,31 @@ export default function UploadImage() {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <input type="file" value={uploadInput} onChange={handleImageChange} />
+      <UploadButtonContainer>
+        <ButtonWrapper>
+          <InputButton
+            style={{
+              background: previewSrc
+                ? "var(--background)"
+                : "linear-gradient(160deg, var(--active), var(--active-gradient))",
+            }}
+            htmlFor="upload"
+          >
+            Bild auswählen
+          </InputButton>
+          <ImageInput
+            type="file"
+            value={uploadInput}
+            onChange={handleImageChange}
+          />
+        </ButtonWrapper>
+      </UploadButtonContainer>
       {previewSrc && <UploadPreview src={previewSrc} alt="" />}
-      <Button type="submit" label="Bild hochladen" />
+      <div>
+        {previewSrc && (
+          <UploadButton type="submit">Bild hochladen</UploadButton>
+        )}
+      </div>
     </form>
   );
 }

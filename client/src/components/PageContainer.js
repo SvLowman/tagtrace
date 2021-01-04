@@ -1,7 +1,5 @@
 import styled from "styled-components/macro";
 
-const PageContainer = styled.div`
-  border: solid 1px lightgray;
-`;
+const PageContainer = styled.div``;
 
 export default PageContainer;

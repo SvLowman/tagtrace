@@ -2,7 +2,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./App.css";
+import GlobalStyle from "./globalStyles";
 import PageContainer from "./components/PageContainer";
 import TopElement from "./components/TopElement";
 import SplashPage from "./pages/SplashPage";
@@ -25,6 +25,7 @@ function App() {
     <div className="App">
       <QueryClientProvider client={queryClient}>
         <Router>
+          <GlobalStyle />
           <PageContainer>
             {!page && <TopElement />}
             <Switch>

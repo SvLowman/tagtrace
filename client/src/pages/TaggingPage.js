@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
-import { Button } from "../components/Button";
 import {
   getImageObj,
   addNewTag,
@@ -17,25 +16,27 @@ const Image = styled.img`
   position: relative;
 `;
 const ImageDeleteButton = styled.button`
-  border: solid 1px lightgray;
+  border-radius: 50%;
+  border: solid 1px rgba(220, 228, 204, 0.3);
+  padding: 0.5rem;
+  margin: 2% 2% 0 0;
   position: absolute;
   align-self: flex-start;
   right: 0;
 `;
 
 const ImageSlide = styled.div`
-  border: solid 1px lightgray;
+  padding: 1rem;
+  gap: 0.5rem;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
-  gap: 0.5rem;
-  padding: 1rem;
 `;
 const ThumbnailContainer = styled.div`
+  background: var(--image-container);
   width: 4rem;
   height: 4rem;
   min-width: 4rem;
-  border: solid 1px lightgray;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,13 +44,67 @@ const ThumbnailContainer = styled.div`
 const Thumbnail = styled.img`
   max-width: 100%;
   max-height: 100%;
+  cursor: pointer;
 `;
 
 const TagForm = styled.form`
-  border: solid 1px lightgray;
+  padding: 3.2rem 0 2rem;
 `;
+const TagInput = styled.input`
+  background: var(--light);
+  color: var(--header);
+  width: 55%;
+  border-bottom-left-radius: 1rem;
+  border-top-left-radius: 1rem;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-top: solid 1px var(--light);
+  border-bottom: none;
+  padding: 0.5rem 0.8rem;
+  font-family: var(--tagfont);
+  font-size: 1.1rem;
+`;
+const TagSubmitButton = styled.button`
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  background: linear-gradient(160deg, var(--active), var(--active-gradient));
+`;
+
 const TagNotifier = styled.div`
-  border: solid 1px lightgray;
+  margin-bottom: 5rem;
+`;
+const TagElementContainer = styled.div`
+  padding: 0 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+const TagElement = styled.div`
+  display: flex;
+  width: fit-content;
+  margin: 0.5rem;
+`;
+const TagCard = styled.div`
+  border: solid 1px rgba(220, 228, 204, 0.3);
+  border-bottom-left-radius: 1.3rem;
+  border-top-left-radius: 1.3rem;
+  border-right: none;
+  font-family: var(--tagfont);
+  font-size: 1rem;
+  padding: 0.5rem 0.7rem 0.5rem 0.8rem;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+`;
+const TagDeleteButton = styled.button`
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 1.3rem;
+  border-top-right-radius: 1.3rem;
+  border: solid 1px rgba(220, 228, 204, 0.3);
+  border-left: none;
+  background: var(--header);
+  padding: 0.5rem 0.7rem 0.5rem 0.5rem;
 `;
 
 const TaggingPage = ({ selectedImage, setSelectedImage }) => {
@@ -73,7 +128,7 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
   const [tagName, setTagName] = useState("");
 
   useEffect(() => {
-    if (userData && selectedImage === null) {
+    if (userData && !selectedImage) {
       setSelectedImage(allImages[allImages.length - 1]);
     }
   }, [userData, allImages, selectedImage, setSelectedImage]);
@@ -94,12 +149,13 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
 
   const handleImageDelete = async () => {
     await deleteImageObj(userName, imgNr);
+    setSelectedImage(allImages[allImages.indexOf(selectedImage) + 1]);
     setAllImages([...allImages]);
   };
 
   const handleTagDelete = async (tag) => {
     await deleteTagItem(userName, imgNr, tag);
-    setTagArray([...tagArray]);
+    setTagArray(tagArray.filter((singleTag) => singleTag !== tag));
   };
 
   const handleTagNameChange = (event) => {
@@ -116,12 +172,6 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
   return (
     <>
       <div>
-        <ImageContainer>
-          {selectedImage && <Image src={selectedImage.url} alt="" />}
-          <ImageDeleteButton label="❌" onClick={handleImageDelete}>
-            ❌
-          </ImageDeleteButton>
-        </ImageContainer>
         <ImageSlide>
           {isLoading && <p>Loading...</p>}
           {isError && <p>{error}</p>}
@@ -133,35 +183,46 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
                 <ThumbnailContainer key={image.imgNr}>
                   <Thumbnail
                     style={{
-                      border: selectedImage === image ? "2px solid red" : "",
+                      border:
+                        selectedImage === image
+                          ? "2px solid var(--active)"
+                          : "",
                     }}
                     key={image.imgNr}
                     src={image.url}
-                    alt="alt"
+                    alt=""
                     onClick={() => setSelectedImage(image)}
                   />
                 </ThumbnailContainer>
               ))}
         </ImageSlide>
+        <ImageContainer>
+          {selectedImage && <Image src={selectedImage.url} alt="" />}
+          <ImageDeleteButton onClick={handleImageDelete}>❌</ImageDeleteButton>
+        </ImageContainer>
         <TagForm onSubmit={handleSubmit}>
-          <input
+          <TagInput
             type="text"
-            placeholder="Tag setzen"
+            placeholder="Tag"
             required="required"
             value={tagName}
             onChange={handleTagNameChange}
-          ></input>
-          <Button label="Darf ich button?" type="submit" />
+          ></TagInput>
+          <TagSubmitButton type="submit">Setzen</TagSubmitButton>
         </TagForm>
         <TagNotifier>
-          {selectedImage && <p>Diese Tags hat das Bild schon:</p>}
-          {selectedImage &&
-            tagArray.map((tag, index) => (
-              <div key={index}>
-                {tag}
-                <Button label="❌" onClick={() => handleTagDelete(tag)} />
-              </div>
-            ))}
+          {tagArray[0] && <p>Diese Tags hat das Bild schon:</p>}
+          <TagElementContainer>
+            {selectedImage &&
+              tagArray.map((tag, index) => (
+                <TagElement key={index}>
+                  <TagCard>{tag}</TagCard>
+                  <TagDeleteButton onClick={() => handleTagDelete(tag)}>
+                    ❌
+                  </TagDeleteButton>
+                </TagElement>
+              ))}
+          </TagElementContainer>
         </TagNotifier>
       </div>
     </>
