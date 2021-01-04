@@ -149,12 +149,13 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
 
   const handleImageDelete = async () => {
     await deleteImageObj(userName, imgNr);
+    setSelectedImage(allImages[allImages.indexOf(selectedImage) + 1]);
     setAllImages([...allImages]);
   };
 
   const handleTagDelete = async (tag) => {
     await deleteTagItem(userName, imgNr, tag);
-    setTagArray([...tagArray]);
+    setTagArray(tagArray.filter((singleTag) => singleTag !== tag));
   };
 
   const handleTagNameChange = (event) => {
@@ -202,12 +203,12 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
         <TagForm onSubmit={handleSubmit}>
           <TagInput
             type="text"
-            placeholder="Tag setzen"
+            placeholder="Tag"
             required="required"
             value={tagName}
             onChange={handleTagNameChange}
           ></TagInput>
-          <TagSubmitButton type="submit">Darf ich button?</TagSubmitButton>
+          <TagSubmitButton type="submit">Setzen</TagSubmitButton>
         </TagForm>
         <TagNotifier>
           {tagArray[0] && <p>Diese Tags hat das Bild schon:</p>}
