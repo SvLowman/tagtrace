@@ -31,11 +31,11 @@ const BottomNavContainer = () => {
     <NavContainer>
       <LogoDummy>123</LogoDummy>
       <Link to="/">
-        <NavButton active={location.pathname === "/"}>+ Hinzufügen</NavButton>
+        <NavButton active={location.pathname === "/"}>➕ Hinzufügen</NavButton>
       </Link>
       <Link to="/tagging">
         <NavButton active={location.pathname === "/tagging"}>
-          🖍 Bearbeiten
+          🖊 Bearbeiten
         </NavButton>
       </Link>
       <Link to="/gallery">
