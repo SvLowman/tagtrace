@@ -17,8 +17,9 @@ const Image = styled.img`
 `;
 const ImageDeleteButton = styled.button`
   border-radius: 50%;
-  border: solid 1px rgba(220, 228, 204, 0.3);
-  padding: 0.3rem 0.5rem;
+  /* border: solid 1px rgba(220, 228, 204, 0.3); */
+  border: none;
+  padding: 0.5rem;
   margin: 1% 1.5% 0 0;
   position: absolute;
   align-self: flex-start;
