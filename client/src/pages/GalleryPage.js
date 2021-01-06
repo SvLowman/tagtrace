@@ -19,7 +19,7 @@ const NextImageButton = styled.button`
       ? "solid 1px rgba(220, 228, 204, 0.3)"
       : "solid 1px rgba(220, 228, 204, 0.6)"};
   padding: 0.5rem 0.8rem;
-  margin: 0 2% 2% 0;
+  margin: 0 1% 1% 0;
   position: absolute;
   align-self: flex-end;
   right: 0;
@@ -34,7 +34,7 @@ const PreviousImageButton = styled.button`
       ? "solid 1px rgba(220, 228, 204, 0.3)"
       : "solid 1px rgba(220, 228, 204, 0.5)"};
   padding: 0.5rem 0.8rem;
-  margin: 0 0 2% 2%;
+  margin: 0 0 1% 1%;
   position: absolute;
   align-self: flex-end;
   left: 0;
@@ -91,8 +91,8 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
           <ImageContainer>
             <PreviousImageButton
               type="submit"
-              onClick={loadPreviousImage}
-              disabled={!previousImage}
+              onClick={loadNextImage}
+              disabled={!nextImage}
             >
               ◀
             </PreviousImageButton>
@@ -101,8 +101,8 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
             {selectedImage && <Image src={selectedImage.url} alt="" />}
             <NextImageButton
               type="submit"
-              onClick={loadNextImage}
-              disabled={!nextImage}
+              onClick={loadPreviousImage}
+              disabled={!previousImage}
             >
               ▶
             </NextImageButton>

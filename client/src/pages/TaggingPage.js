@@ -19,7 +19,7 @@ const ImageDeleteButton = styled.button`
   border-radius: 50%;
   border: solid 1px rgba(220, 228, 204, 0.3);
   padding: 0.5rem;
-  margin: 2% 2% 0 0;
+  margin: 1% 1.5% 0 0;
   position: absolute;
   align-self: flex-start;
   right: 0;
@@ -145,7 +145,7 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
 
   useEffect(() => {
     refetch();
-  }, [tagArray, allImages, refetch]);
+  }, [selectedImage, tagArray, allImages, refetch]);
 
   const handleImageDelete = async () => {
     await deleteImageObj(userName, imgNr);
