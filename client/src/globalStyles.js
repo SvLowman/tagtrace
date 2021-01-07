@@ -38,6 +38,12 @@ button {
     padding: 0.5rem 0.8rem;
     cursor: pointer;
 }
+
+/* @media (min-width: 30em) and (orientation: landscape) { 
+    body {
+        background: hotpink;
+        }
+ } */
 `;
 
 export default GlobalStyle;
