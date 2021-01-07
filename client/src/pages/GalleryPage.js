@@ -5,6 +5,16 @@ import { ImageContainer } from "../components/Display";
 import { getImageObj } from "../utils/api";
 import { useQuery } from "react-query";
 
+const GalleryPageContainer = styled.div`
+  @media (min-width: 1000px) and (orientation: landscape) {
+    height: calc(100vh - 6.3rem);
+    display: grid;
+    grid-template-columns: auto calc(100vh - 6.3rem) 33%;
+  }
+`;
+
+const MarginDummy = styled.div``;
+
 const Image = styled.img`
   max-height: 100%;
   max-width: 100%;
@@ -42,6 +52,12 @@ const PreviousImageButton = styled.button`
 
 const TagDisplay = styled.div`
   margin: 2% 2% 5rem;
+  @media (min-width: 1000px) and (orientation: landscape) {
+    margin: 4% 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 const TagButton = styled.button`
@@ -51,6 +67,7 @@ const TagButton = styled.button`
   font-size: 1.2rem;
   padding: 0.8rem 1rem 0.6rem 1rem;
   margin: 0.1rem;
+  width: fit-content;
 `;
 
 const GalleryPage = ({ selectedImage, setSelectedImage }) => {
@@ -87,7 +104,8 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
   return (
     <>
       {allImages && (
-        <div>
+        <GalleryPageContainer>
+          <MarginDummy></MarginDummy>
           <ImageContainer>
             <PreviousImageButton
               type="submit"
@@ -130,7 +148,7 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
                 </TagButton>
               ))}
           </TagDisplay>
-        </div>
+        </GalleryPageContainer>
       )}
     </>
   );
