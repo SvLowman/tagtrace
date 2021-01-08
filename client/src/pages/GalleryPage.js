@@ -13,8 +13,6 @@ const GalleryPageContainer = styled.div`
   }
 `;
 
-const MarginDummy = styled.div``;
-
 const Image = styled.img`
   max-height: 100%;
   max-width: 100%;
@@ -111,7 +109,7 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
     <>
       {allImages && (
         <GalleryPageContainer>
-          <MarginDummy></MarginDummy>
+          <div></div>
           <ImageContainer>
             <PreviousImageButton
               type="submit"
