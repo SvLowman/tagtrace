@@ -1,5 +1,4 @@
 import { ReactQueryDevtools } from "react-query/devtools";
-import { QueryClient, QueryClientProvider } from "react-query";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import GlobalStyle from "./globalStyles";
@@ -10,8 +9,8 @@ import UploadPage from "./pages/UploadPage";
 import TaggingPage from "./pages/TaggingPage";
 import GalleryPage from "./pages/GalleryPage";
 import BottomNav from "./components/BottomNav";
-
-const queryClient = new QueryClient();
+import { getImageObj } from "./utils/api";
+import { useQuery } from "react-query";
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -21,10 +20,20 @@ function App() {
     setTimeout(() => setPage(false), 4000);
   }, []);
 
+  const userName = "sven";
+
+  const {
+    data: userData,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery("allImages", () => getImageObj(userName));
+
   return (
-    <div className="App">
-      <QueryClientProvider client={queryClient}>
-        <Router>
+    <>
+      <Router>
+        <div className="App">
           <GlobalStyle />
           <PageContainer>
             {!page && <TopElement />}
@@ -36,21 +45,30 @@ function App() {
                 <TaggingPage
                   selectedImage={selectedImage}
                   setSelectedImage={setSelectedImage}
+                  userData={userData}
+                  isLoading={isLoading}
+                  isError={isError}
+                  error={error}
+                  refetch={refetch}
                 />
               </Route>
               <Route path="/gallery">
                 <GalleryPage
                   selectedImage={selectedImage}
                   setSelectedImage={setSelectedImage}
+                  userData={userData}
+                  isLoading={isLoading}
+                  isError={isError}
+                  error={error}
                 />
               </Route>
             </Switch>
             {!page && <BottomNav />}
           </PageContainer>
-        </Router>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </div>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </div>
+      </Router>
+    </>
   );
 }
 

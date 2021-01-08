@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
-import {
-  getImageObj,
-  addNewTag,
-  deleteImageObj,
-  deleteTagItem,
-} from "../utils/api";
+import { addNewTag, deleteImageObj, deleteTagItem } from "../utils/api";
 import { ImageContainer } from "../components/Display";
-import { useQuery } from "react-query";
 
 const TaggingPageContainer = styled.div`
   @media (min-width: 1000px) and (orientation: landscape) {
@@ -152,16 +146,26 @@ const TagDeleteButton = styled.button`
   padding: 0.5rem 0.7rem 0.5rem 0.5rem;
 `;
 
-const TaggingPage = ({ selectedImage, setSelectedImage }) => {
-  const userName = "sven";
+const TaggingPage = ({
+  selectedImage,
+  setSelectedImage,
+  userData,
+  isLoading,
+  error,
+  isError,
+  refetch,
+}) => {
+  TaggingPage.propTypes = {
+    selectedImage: PropTypes.any,
+    setSelectedImage: PropTypes.any,
+    userData: PropTypes.object,
+    isLoading: PropTypes.bool,
+    isError: PropTypes.bool,
+    error: PropTypes.string,
+    refetch: PropTypes.func,
+  };
 
-  const {
-    data: userData,
-    isLoading,
-    isError,
-    error,
-    refetch,
-  } = useQuery("allImages", () => getImageObj(userName));
+  const userName = "sven";
 
   const [allImages, setAllImages] = useState([]);
   useEffect(() => {
@@ -207,10 +211,11 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
     setTagName(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setTagArray([...tagArray, tagName]);
-    addNewTag(userName, imgNr, tagName);
+    await addNewTag(userName, imgNr, tagName);
+    // refetch();
     setTagName("");
   };
 
@@ -253,7 +258,7 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
               required="required"
               value={tagName}
               onChange={handleTagNameChange}
-            ></TagInput>
+            />
             <TagSubmitButton type="submit">Setzen</TagSubmitButton>
           </TagForm>
           <TagNotifier>
@@ -277,8 +282,3 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
 };
 
 export default TaggingPage;
-
-TaggingPage.propTypes = {
-  selectedImage: PropTypes.any,
-  setSelectedImage: PropTypes.any,
-};

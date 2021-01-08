@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import PropTypes from "prop-types";
 import { ImageContainer } from "../components/Display";
-import { getImageObj } from "../utils/api";
-import { useQuery } from "react-query";
 
 const GalleryPageContainer = styled.div`
   @media (min-width: 1000px) and (orientation: landscape) {
@@ -68,25 +66,30 @@ const TagButton = styled.button`
   width: fit-content;
 `;
 
-const GalleryPage = ({ selectedImage, setSelectedImage }) => {
-  const userName = "sven";
-  const { data: userData, isLoading, isError, error } = useQuery(
-    "allImages",
-    () => getImageObj(userName)
-  );
-
-  const [allImages, setAllImages] = useState([]);
-  useEffect(() => {
-    if (userData) {
-      setAllImages(userData.images);
-    }
-  }, [userData, setAllImages]);
+const GalleryPage = ({
+  selectedImage,
+  setSelectedImage,
+  userData,
+  isLoading,
+  error,
+  isError,
+}) => {
+  GalleryPage.propTypes = {
+    selectedImage: PropTypes.any,
+    setSelectedImage: PropTypes.any,
+    userData: PropTypes.object,
+    isLoading: PropTypes.bool,
+    isError: PropTypes.bool,
+    error: PropTypes.string,
+  };
 
   const [selectedTag, setSelectedTag] = useState("");
 
+  console.log(userData);
+
   const filteredImages = selectedTag
-    ? allImages.filter((image) => image.tags.includes(selectedTag))
-    : allImages;
+    ? userData.images.filter((image) => image.tags.includes(selectedTag))
+    : userData.images;
 
   const indexOfSelectedImage = filteredImages.indexOf(selectedImage);
   const nextImage = filteredImages[indexOfSelectedImage + 1];
@@ -107,7 +110,7 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
 
   return (
     <>
-      {allImages && (
+      {userData && (
         <GalleryPageContainer>
           <div></div>
           <ImageContainer>
@@ -159,8 +162,3 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
 };
 
 export default GalleryPage;
-
-GalleryPage.propTypes = {
-  selectedImage: PropTypes.any,
-  setSelectedImage: PropTypes.any,
-};
