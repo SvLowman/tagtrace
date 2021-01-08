@@ -53,7 +53,7 @@ const PreviousImageButton = styled.button`
 const TagDisplay = styled.div`
   margin: 2% 2% 5rem;
   @media (min-width: 1000px) and (orientation: landscape) {
-    margin: 4% 4%;
+    margin: 2% 15%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -94,11 +94,17 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
   const nextImage = filteredImages[indexOfSelectedImage + 1];
   const loadNextImage = () => {
     setSelectedImage(nextImage);
+    if (!nextImage) {
+      setSelectedImage(filteredImages[0]);
+    }
   };
 
   const previousImage = filteredImages[indexOfSelectedImage - 1];
   const loadPreviousImage = () => {
     setSelectedImage(previousImage);
+    if (!previousImage) {
+      setSelectedImage(filteredImages[filteredImages.length - 1]);
+    }
   };
 
   return (
@@ -110,7 +116,7 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
             <PreviousImageButton
               type="submit"
               onClick={loadPreviousImage}
-              disabled={!previousImage}
+              disabled={!filteredImages[1]}
             >
               ◀
             </PreviousImageButton>
@@ -120,7 +126,7 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
             <NextImageButton
               type="submit"
               onClick={loadNextImage}
-              disabled={!nextImage}
+              disabled={!filteredImages[1]}
             >
               ▶
             </NextImageButton>
