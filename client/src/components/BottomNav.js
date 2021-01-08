@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components/macro";
-import PropTypes from "prop-types";
 
 const LogoDummy = styled.button`
   border: none;
