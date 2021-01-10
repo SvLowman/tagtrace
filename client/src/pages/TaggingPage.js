@@ -201,16 +201,22 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
   const handleTagDelete = async (tag) => {
     await deleteTagItem(userName, imgNr, tag);
     setTagArray(tagArray.filter((singleTag) => singleTag !== tag));
+    const newTags = selectedImage.tags.filter((singleTag) => singleTag !== tag);
+    setSelectedImage({ ...selectedImage, tags: newTags });
   };
 
   const handleTagNameChange = (event) => {
     setTagName(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setTagArray([...tagArray, tagName]);
-    addNewTag(userName, imgNr, tagName);
+    setSelectedImage({
+      ...selectedImage,
+      tags: [...selectedImage.tags, tagName],
+    });
+    await addNewTag(userName, imgNr, tagName);
     setTagName("");
   };
 
