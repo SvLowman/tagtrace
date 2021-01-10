@@ -10,10 +10,39 @@ import {
 import { ImageContainer } from "../components/Display";
 import { useQuery } from "react-query";
 
+const TaggingPageContainer = styled.div`
+  @media (min-width: 1000px) and (orientation: landscape) {
+    height: calc(100vh - 6.3rem);
+    display: grid;
+  }
+  @media (min-width: 1000px) and (orientation: landscape) {
+    grid-template-columns: 6rem calc(100vh - 6.3rem) auto;
+  }
+  @media (min-width: 1180px) and (orientation: landscape) {
+    grid-template-columns: 11rem calc(100vh - 6.3rem) auto;
+  }
+  @media (min-width: 1260px) and (orientation: landscape) {
+    grid-template-columns: 15rem calc(100vh - 6.3rem) auto;
+  }
+  @media (min-width: 1340px) and (orientation: landscape) {
+    grid-template-columns: 20rem calc(100vh - 6.3rem) auto;
+  }
+  @media (min-width: 1420px) and (orientation: landscape) {
+    grid-template-columns: 24rem calc(100vh - 6.3rem) auto;
+  }
+  @media (min-width: 1500px) and (orientation: landscape) {
+    grid-template-columns: 29rem calc(100vh - 6.3rem) auto;
+  }
+`;
+
 const Image = styled.img`
   max-height: 100%;
   max-width: 100%;
   position: relative;
+  @media (min-width: 1000px) and (orientation: landscape) {
+    position: absolute;
+    z-index: 1;
+  }
 `;
 const ImageDeleteButton = styled.button`
   border-radius: 50%;
@@ -23,6 +52,10 @@ const ImageDeleteButton = styled.button`
   position: absolute;
   align-self: flex-start;
   right: 0;
+  @media (min-width: 1000px) and (orientation: landscape) {
+    z-index: 2;
+    justify-self: flex-start;
+  }
 `;
 
 const ImageSlide = styled.div`
@@ -31,6 +64,17 @@ const ImageSlide = styled.div`
   display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
+  @media (min-width: 1000px) and (orientation: landscape) {
+    padding: 1rem;
+    height: 100;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+      width: 0 !important;
+      background-color: transparent;
+    }
+  }
 `;
 const ThumbnailContainer = styled.div`
   background: var(--image-container);
@@ -47,6 +91,7 @@ const Thumbnail = styled.img`
   cursor: pointer;
 `;
 
+const TaggingFormContainer = styled.div``;
 const TagForm = styled.form`
   padding: 3.2rem 0 2rem;
 `;
@@ -156,22 +201,28 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
   const handleTagDelete = async (tag) => {
     await deleteTagItem(userName, imgNr, tag);
     setTagArray(tagArray.filter((singleTag) => singleTag !== tag));
+    const newTags = selectedImage.tags.filter((singleTag) => singleTag !== tag);
+    setSelectedImage({ ...selectedImage, tags: newTags });
   };
 
   const handleTagNameChange = (event) => {
     setTagName(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setTagArray([...tagArray, tagName]);
-    addNewTag(userName, imgNr, tagName);
+    setSelectedImage({
+      ...selectedImage,
+      tags: [...selectedImage.tags, tagName],
+    });
+    await addNewTag(userName, imgNr, tagName);
     setTagName("");
   };
 
   return (
     <>
-      <div>
+      <TaggingPageContainer>
         <ImageSlide>
           {isLoading && <p>Loading...</p>}
           {isError && <p>{error}</p>}
@@ -200,31 +251,33 @@ const TaggingPage = ({ selectedImage, setSelectedImage }) => {
           {selectedImage && <Image src={selectedImage.url} alt="" />}
           <ImageDeleteButton onClick={handleImageDelete}>❌</ImageDeleteButton>
         </ImageContainer>
-        <TagForm onSubmit={handleSubmit}>
-          <TagInput
-            type="text"
-            placeholder="Tag"
-            required="required"
-            value={tagName}
-            onChange={handleTagNameChange}
-          ></TagInput>
-          <TagSubmitButton type="submit">Setzen</TagSubmitButton>
-        </TagForm>
-        <TagNotifier>
-          {tagArray[0] && <p>Diese Tags hat das Bild schon:</p>}
-          <TagElementContainer>
-            {selectedImage &&
-              tagArray.map((tag, index) => (
-                <TagElement key={index}>
-                  <TagCard>{tag}</TagCard>
-                  <TagDeleteButton onClick={() => handleTagDelete(tag)}>
-                    ❌
-                  </TagDeleteButton>
-                </TagElement>
-              ))}
-          </TagElementContainer>
-        </TagNotifier>
-      </div>
+        <TaggingFormContainer>
+          <TagForm onSubmit={handleSubmit}>
+            <TagInput
+              type="text"
+              placeholder="Tag"
+              required="required"
+              value={tagName}
+              onChange={handleTagNameChange}
+            ></TagInput>
+            <TagSubmitButton type="submit">Setzen</TagSubmitButton>
+          </TagForm>
+          <TagNotifier>
+            {tagArray[0] && <p>Diese Tags hat das Bild schon:</p>}
+            <TagElementContainer>
+              {selectedImage &&
+                tagArray.map((tag, index) => (
+                  <TagElement key={index}>
+                    <TagCard>{tag}</TagCard>
+                    <TagDeleteButton onClick={() => handleTagDelete(tag)}>
+                      ❌
+                    </TagDeleteButton>
+                  </TagElement>
+                ))}
+            </TagElementContainer>
+          </TagNotifier>
+        </TaggingFormContainer>
+      </TaggingPageContainer>
     </>
   );
 };

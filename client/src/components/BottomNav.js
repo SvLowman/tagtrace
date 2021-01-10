@@ -5,6 +5,9 @@ import styled from "styled-components/macro";
 const LogoDummy = styled.button`
   border: none;
   color: transparent;
+  @media (min-width: 1000px) and (orientation: landscape) {
+    display: none;
+  }
 `;
 
 const NavButton = styled.button`

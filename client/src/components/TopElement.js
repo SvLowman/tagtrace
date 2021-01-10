@@ -6,6 +6,7 @@ const TopElementContainer = styled.div`
   border-top: solid 1px black;
   font-family: var(--tagfont);
   background: var(--header);
+  height: 3rem;
 `;
 
 const TopElement = () => (

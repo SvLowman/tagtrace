@@ -10,6 +10,14 @@ const Display = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (min-width: 800px) {
+    height: 50vh;
+    width: 50vh;
+  }
+  @media (min-width: 1000px) and (orientation: landscape) {
+    height: 50vh;
+    width: 50vh;
+  }
 `;
 const PreviewImage = styled.img`
   max-height: 100%;

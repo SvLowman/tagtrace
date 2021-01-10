@@ -5,6 +5,14 @@ import { ImageContainer } from "../components/Display";
 import { getImageObj } from "../utils/api";
 import { useQuery } from "react-query";
 
+const GalleryPageContainer = styled.div`
+  @media (min-width: 1000px) and (orientation: landscape) {
+    height: calc(100vh - 6.3rem);
+    display: grid;
+    grid-template-columns: auto calc(100vh - 6.3rem) 33%;
+  }
+`;
+
 const Image = styled.img`
   max-height: 100%;
   max-width: 100%;
@@ -42,6 +50,12 @@ const PreviousImageButton = styled.button`
 
 const TagDisplay = styled.div`
   margin: 2% 2% 5rem;
+  @media (min-width: 1000px) and (orientation: landscape) {
+    margin: 2% 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 const TagButton = styled.button`
@@ -51,6 +65,7 @@ const TagButton = styled.button`
   font-size: 1.2rem;
   padding: 0.8rem 1rem 0.6rem 1rem;
   margin: 0.1rem;
+  width: fit-content;
 `;
 
 const GalleryPage = ({ selectedImage, setSelectedImage }) => {
@@ -77,22 +92,29 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
   const nextImage = filteredImages[indexOfSelectedImage + 1];
   const loadNextImage = () => {
     setSelectedImage(nextImage);
+    if (!nextImage) {
+      setSelectedImage(filteredImages[0]);
+    }
   };
 
   const previousImage = filteredImages[indexOfSelectedImage - 1];
   const loadPreviousImage = () => {
     setSelectedImage(previousImage);
+    if (!previousImage) {
+      setSelectedImage(filteredImages[filteredImages.length - 1]);
+    }
   };
 
   return (
     <>
       {allImages && (
-        <div>
+        <GalleryPageContainer>
+          <div></div>
           <ImageContainer>
             <PreviousImageButton
               type="submit"
               onClick={loadPreviousImage}
-              disabled={!previousImage}
+              disabled={!filteredImages[1]}
             >
               ◀
             </PreviousImageButton>
@@ -102,7 +124,7 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
             <NextImageButton
               type="submit"
               onClick={loadNextImage}
-              disabled={!nextImage}
+              disabled={!filteredImages[1]}
             >
               ▶
             </NextImageButton>
@@ -130,7 +152,7 @@ const GalleryPage = ({ selectedImage, setSelectedImage }) => {
                 </TagButton>
               ))}
           </TagDisplay>
-        </div>
+        </GalleryPageContainer>
       )}
     </>
   );
