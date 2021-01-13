@@ -78,7 +78,7 @@ const SplashPage = () => (
       <FourteenthSquare>G</FourteenthSquare>
     </LogoGridContainer>
     <section>
-      <h2>Trace your Tags! 😛</h2>
+      <h2>Trace your Tags!</h2>
     </section>
   </LogoContainer>
 );

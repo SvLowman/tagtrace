@@ -6,6 +6,8 @@ import GlobalStyle from "./globalStyles";
 import PageContainer from "./components/PageContainer";
 import TopElement from "./components/TopElement";
 import SplashPage from "./pages/SplashPage";
+import LoginPage from "./pages/LoginPage.js";
+import RegistrationPage from "./pages/RegistrationPage.js";
 import UploadPage from "./pages/UploadPage";
 import TaggingPage from "./pages/TaggingPage";
 import GalleryPage from "./pages/GalleryPage";
@@ -30,7 +32,13 @@ function App() {
             {!page && <TopElement />}
             <Switch>
               <Route exact path="/">
-                {page ? <SplashPage /> : <UploadPage />}
+                {page ? <SplashPage /> : <LoginPage />}
+              </Route>
+              <Route path="/registration">
+                <RegistrationPage />
+              </Route>
+              <Route path="/upload">
+                <UploadPage />
               </Route>
               <Route path="/tagging">
                 <TaggingPage
@@ -45,7 +53,7 @@ function App() {
                 />
               </Route>
             </Switch>
-            {!page && <BottomNav />}
+            {!page || (!LoginPage && <BottomNav />)}
           </PageContainer>
         </Router>
         <ReactQueryDevtools initialIsOpen={false} />

@@ -1,8 +1,12 @@
+// For allImages
+
 export const getImageObj = async (userName) => {
   const response = await fetch(`/api/users/${userName}`);
   const imgEntry = await response.json();
   return imgEntry;
 };
+
+// For Tagging
 
 export async function postImageObj(userName, image) {
   const response = await fetch(`/api/users/${userName}`, {
@@ -45,3 +49,11 @@ export async function deleteTagItem(userName, imgNr, tagName) {
   const answer = await response.text();
   return answer;
 }
+
+// For Login
+
+export const getLoginData = async (userName) => {
+  const response = await fetch(`/api/users/${userName}`);
+  const loginData = await response.json();
+  return loginData;
+};

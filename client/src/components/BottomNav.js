@@ -2,14 +2,6 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components/macro";
 
-const LogoDummy = styled.button`
-  border: none;
-  color: transparent;
-  @media (min-width: 1000px) and (orientation: landscape) {
-    display: none;
-  }
-`;
-
 const NavButton = styled.button`
   border: none;
   color: ${(props) => (props.active ? "var(--active)" : "var(--light)")};
@@ -32,7 +24,6 @@ const BottomNavContainer = () => {
 
   return (
     <NavContainer>
-      <LogoDummy>123</LogoDummy>
       <Link to="/">
         <NavButton active={location.pathname === "/"}>+ Hinzufügen</NavButton>
       </Link>

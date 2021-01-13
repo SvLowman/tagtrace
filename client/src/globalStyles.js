@@ -38,6 +38,10 @@ button {
     padding: 0.5rem 0.8rem;
     cursor: pointer;
 }
+
+footer {
+    visibility: hidden;
+}
 `;
 
 export default GlobalStyle;
