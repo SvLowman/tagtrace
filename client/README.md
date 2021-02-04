@@ -3,7 +3,7 @@
 **_TagTrace_ is a tool for creative management of your image collection with help of tags (_topical association grammas_).**
 
 Watching digital images, we are usually tied to the structure of the folders they contain them. _TagTrace_ helps you to compile your own image collection online, tag the images and then click through them, being independent from rigid folder structures.  
-Your tags you can follow like traces leading through your image collection. Each image thus becomes a topical node point, looking at them one after another becomes like strolling through a rhizome-like mesh of associative cross references.
+You can follow your tags like traces leading through your image collection. Each image thus becomes a topical node point, looking at them one after another becomes like strolling through a rhizome-like mesh of associative cross references.
 
 I developed _TagTrace_ as capstone project during my web development bootcamp at _neue fische_ in Cologne.
 
