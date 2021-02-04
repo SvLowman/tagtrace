@@ -11,7 +11,13 @@ const LoginInput = styled.input``;
 
 const LoginPage = () => {
   const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordFromDatabase, setPasswordFromDatabase] = useState("");
+
+  // useEffect(() => {
+  //   const password = async function getLoginData(userName);
+  //   setPasswordFromDatabase(password);
+  // }, []);
 
   const handleUserNameChange = (event) => {
     setUserName(event.target.value);
@@ -19,14 +25,18 @@ const LoginPage = () => {
   console.log(userName);
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+    setPasswordInput(event.target.value);
   };
-  console.log(password);
+  console.log(passwordInput);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await getLoginData(userName, password);
+    const password = await getLoginData(userName, passwordInput);
+    setPasswordFromDatabase(password);
+    console.log("submitting:", userName, passwordInput);
+    console.log("receiving:", passwordFromDatabase);
   };
+  console.log(passwordFromDatabase);
 
   return (
     <LoginPageContainer>
@@ -46,7 +56,7 @@ const LoginPage = () => {
             type="password"
             placeholder="Passwort"
             required="required"
-            value={password}
+            value={passwordInput}
             onChange={handlePasswordChange}
           />
           <button type="submit">Login</button>

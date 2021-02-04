@@ -53,7 +53,10 @@ export async function deleteTagItem(userName, imgNr, tagName) {
 // For Login
 
 export const getLoginData = async (userName) => {
+  console.log("Reached api:", userName);
   const response = await fetch(`/api/users/${userName}`);
   const loginData = await response.json();
-  return loginData;
+  const passwordFromDatabase = loginData.password;
+  console.log("passwordFromDatabase:", passwordFromDatabase);
+  return passwordFromDatabase;
 };

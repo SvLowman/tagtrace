@@ -53,7 +53,7 @@ function App() {
                 />
               </Route>
             </Switch>
-            {!page || (!LoginPage && <BottomNav />)}
+            {!page && <BottomNav />}
           </PageContainer>
         </Router>
         <ReactQueryDevtools initialIsOpen={false} />

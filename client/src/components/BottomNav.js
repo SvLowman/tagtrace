@@ -24,8 +24,10 @@ const BottomNavContainer = () => {
 
   return (
     <NavContainer>
-      <Link to="/">
-        <NavButton active={location.pathname === "/"}>+ Hinzufügen</NavButton>
+      <Link to="/upload">
+        <NavButton active={location.pathname === "/upload"}>
+          + Hinzufügen
+        </NavButton>
       </Link>
       <Link to="/tagging">
         <NavButton active={location.pathname === "/tagging"}>

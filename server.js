@@ -5,6 +5,7 @@ const path = require("path");
 
 const {
   getImageDataOfUser,
+  getLoginData,
   setImage,
   setTag,
   deleteImage,
@@ -39,6 +40,22 @@ app.get("/api/users/:userName", async (request, response) => {
       return;
     }
     response.status(200).send(userEntry);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send("Error 500 occured");
+  }
+});
+
+app.get("/api/users/:userName", async (request, response) => {
+  const { userName } = request.params;
+  try {
+    const loginData = await getLoginData(userName);
+    console.log(loginData);
+    if (!loginData) {
+      response.status(404).send("Not found");
+      return;
+    }
+    response.status(200).send(loginData);
   } catch (error) {
     console.error(error);
     response.status(500).send("Error 500 occured");
